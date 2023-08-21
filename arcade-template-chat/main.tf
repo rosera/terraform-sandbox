@@ -39,7 +39,9 @@
 ## 
 ##   # Customise the GCE instance
 ##   gcrService = "genai-chatbot"
+## TODO: Deploy local container image
 ##   gcrImage   = "gcr.io/qwiklabs-resources/arcade/arcade-frontend-chat"
+##   gcrImage   = "gcr.io/${var.gcp_project_id}/arcade/arcade-frontend-chat"
 ##   gcrRegion  = var.gcp_region 
 ##   gcrEnvs    = [
 ##     { gcr_env_name = "STORAGE_URI", gcr_env_value = "https://${var.gcp_region}-${var.gcp_project_id}.cloudfunctions.net" },
