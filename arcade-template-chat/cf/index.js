@@ -41,6 +41,9 @@ exports.createStorageFile=(req, res)=>{
   // Set the test data {"message": "Log Data"}
   let message = req.query.message || req.body.message || 'Welcome to Arcade!';
 
+  // Set Access Control Allow Origin
+  res.set('Access-Control-Allow-Origin', '*');
+
   // Validate access
   if (message === 'arcade'){
     // Show the storage for Cloud Functions
