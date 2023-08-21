@@ -13,6 +13,10 @@ variable "gcp_zone" {
   type = string
 }
 
+variable "service_account_key_file" {
+  type = string
+  description = "key file location"
+}
 
 ## Soccer National Leagues
 variable "leagues" {

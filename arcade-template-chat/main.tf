@@ -1,51 +1,51 @@
-#-----------------------------------------------------------------------------
-# Module: Cloud Functions
-module "la_gcf" {
-  source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_function/stable"
-
-  # Pass values to the module
-  gcp_project_id       = var.gcp_project_id
-  gcp_region           = var.gcp_region
-  gcp_zone             = var.gcp_zone
-
-  # Customise the Cloud Storage
-  gcs_bucket_extension = "arcade"
-
-  # Customise the Cloud Function
-  gcf_name             = "arcade-1"
-  gcf_description      = "Arcade Game Endpoint"
-  gcf_runtime          = "nodejs16"
-  gcf_target_bucket    = "mybucket"
-  gcf_archive_source   = "./cf/function.zip"
-  gcf_entry_point      = "createStorageFile"
-  gcf_environment_variables = {
-    PROJECT_ID = var.gcp_project_id
-    BUCKETNAME = "${var.gcp_project_id}-bucket" 
-    FILENAME   = "arcade.txt"
-    CONTENT    = "arcade"
-  }
-}
-
-#-----------------------------------------------------------------------------
-# Module: Cloud Run 
-module "la_cloud_run" {
-  #source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_run/stable?ref=tlf-basics"
-  source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_run/stable"
-
-  # Pass values to the module
-  gcp_project_id = var.gcp_project_id
-  gcp_region     = var.gcp_region
-  gcp_zone       = var.gcp_zone
-
-  # Customise the GCE instance
-  gcrService = "genai-chatbot"
-  gcrImage   = "gcr.io/qwiklabs-resources/arcade/arcade-frontend-chat"
-  gcrRegion  = var.gcp_region 
-  gcrEnvs    = [
-    { gcr_env_name = "STORAGE_URI", gcr_env_value = "https://${var.gcp_region}-${var.gcp_project_id}.cloudfunctions.net" },
-    { gcr_env_name = "STORAGE_ENDPOINT", gcr_env_value = "/arcade-1" }
-  ]
-}
+## #-----------------------------------------------------------------------------
+## # Module: Cloud Functions
+## module "la_gcf" {
+##   source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_function/stable"
+## 
+##   # Pass values to the module
+##   gcp_project_id       = var.gcp_project_id
+##   gcp_region           = var.gcp_region
+##   gcp_zone             = var.gcp_zone
+## 
+##   # Customise the Cloud Storage
+##   gcs_bucket_extension = "arcade"
+## 
+##   # Customise the Cloud Function
+##   gcf_name             = "arcade-1"
+##   gcf_description      = "Arcade Game Endpoint"
+##   gcf_runtime          = "nodejs16"
+##   gcf_target_bucket    = "mybucket"
+##   gcf_archive_source   = "./cf/function.zip"
+##   gcf_entry_point      = "createStorageFile"
+##   gcf_environment_variables = {
+##     PROJECT_ID = var.gcp_project_id
+##     BUCKETNAME = "${var.gcp_project_id}-bucket" 
+##     FILENAME   = "arcade.txt"
+##     CONTENT    = "arcade"
+##   }
+## }
+## 
+## #-----------------------------------------------------------------------------
+## # Module: Cloud Run 
+## module "la_cloud_run" {
+##   #source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_run/stable?ref=tlf-basics"
+##   source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_run/stable"
+## 
+##   # Pass values to the module
+##   gcp_project_id = var.gcp_project_id
+##   gcp_region     = var.gcp_region
+##   gcp_zone       = var.gcp_zone
+## 
+##   # Customise the GCE instance
+##   gcrService = "genai-chatbot"
+##   gcrImage   = "gcr.io/qwiklabs-resources/arcade/arcade-frontend-chat"
+##   gcrRegion  = var.gcp_region 
+##   gcrEnvs    = [
+##     { gcr_env_name = "STORAGE_URI", gcr_env_value = "https://${var.gcp_region}-${var.gcp_project_id}.cloudfunctions.net" },
+##     { gcr_env_name = "STORAGE_ENDPOINT", gcr_env_value = "/arcade-1" }
+##   ]
+## }
 
 #-----------------------------------------------------------------------------
 # Arcade Wheel
@@ -62,8 +62,12 @@ resource random_integer "member_index" {
   max = length(var.leagues[local.league_index].members ) -1
 }
 
+
 locals {
   // Define List Members
+#  leagues      = [for leagues in local.csv_leagues : leagues.league]
+#  league_teams = [for leagues in local.csv_leagues : leagues.members]
+
   leagues      = [for leagues in var.leagues : leagues.league]
   league_teams = [for leagues in var.leagues : leagues.members]
 
@@ -106,7 +110,7 @@ resource "google_storage_bucket_object" "task_object" {
     "tasks": [
       for task in var.tasks : {
         tag      = "Task 1"
-        question = "Which league was used in this lab?" 
+        question = "Which data was used in this lab?" 
         option_a = local.leagues[0]
         option_b = local.leagues[1]
         option_c = local.leagues[2]
@@ -119,4 +123,46 @@ resource "google_storage_bucket_object" "task_object" {
     "uri": "https://${var.gcp_region}-${var.gcp_project_id}.cloudfunctions.net"
     "endpoint": "/arcade-1"
   })
+}
+
+
+
+#-----------------------------------------------------------------------------
+# Build Frontend Application 
+
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project
+#
+data "google_project" "project" {
+  project_id = var.gcp_project_id
+}
+
+locals {
+  #  PROJECT_NUMBER@cloudbuild.gserviceaccount.com
+  service_account = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
+}
+
+module "la_sa_role" {
+  source = "github.com/CloudVLab/terraform-lab-foundation//basics/iam_sa_role/stable"
+
+  ## Exchange values between Qwiklabs and Module
+  gcp_project_id = var.gcp_project_id
+  gcp_region     = var.gcp_region 
+  gcp_zone       = var.gcp_zone 
+
+  ## Custom Properties
+  # Pass the service account as principle member - non authorative binding
+  iam_sa_name  = local.service_account
+  iam_sa_roles = ["roles/storage.admin"]
+}
+
+module "cloudbuild_script" {
+  source = "terraform-google-modules/gcloud/google"
+  version = "~> 3.0.1"
+  platform = "linux"
+  create_cmd_entrypoint = "chmod +x ${path.module}/scripts/lab-init.sh;${path.module}/scripts/lab-init.sh"
+  create_cmd_body = "${var.gcp_project_id} ${var.gcp_region} ${var.gcp_zone}"
+  skip_download = false
+  upgrade = false
+  gcloud_sdk_version = "358.0.0"
+  service_account_key_file = var.service_account_key_file
 }
