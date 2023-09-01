@@ -7,7 +7,7 @@ module "la_api_batch" {
   gcp_region     = var.gcp_region
   gcp_zone       = var.gcp_zone
 
-  # Enable Google API(s) 
+  # Enable Google API(s)
   api_services = [ "firebase.googleapis.com" ] 
 }
 
@@ -55,3 +55,9 @@ resource "google_storage_bucket_object" "default" {
         measurementId      = lookup(data.google_firebase_web_app_config.basic, "measurement_id", "")
     })
 }
+
+
+## TODO:
+## Setup a CloudBuild Script to deploy to Firebase Hosting + Cloud Functions
+## Firebase Cloud Function
+## Firebase Hosting
