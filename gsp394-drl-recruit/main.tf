@@ -88,5 +88,3 @@ module "cloudbuild_script" {
   gcloud_sdk_version = "358.0.0"
   service_account_key_file = var.service_account_key_file
 }
-
-
