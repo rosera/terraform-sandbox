@@ -42,7 +42,7 @@ variable "leagues" {
       ]
     },
     {
-      "league" = "Italian Seria A"
+      "league" = "Italian Serie A"
       "members" = [
         "Atalanta",
         "Roma",
