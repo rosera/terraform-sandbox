@@ -15,6 +15,8 @@ steps:
 
     ## SCRIPT START
     echo "Script for ${PROJECT_ID} - Replace with cool script"
+    # 1. gsutil gs://[PROJECT-bucket]-fb-webapp/.firebaserc /workspace
+    # 2. gsutil gs://[PROJECT-bucket]-fb-webapp/firebase.json /workspace
     ## SCRIPT END 
    
 timeout: 900s

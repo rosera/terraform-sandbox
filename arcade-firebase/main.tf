@@ -32,17 +32,24 @@ data "google_firebase_web_app_config" "basic" {
   web_app_id = google_firebase_web_app.basic.app_id
 }
 
-resource "google_storage_bucket" "default" {
+resource "google_storage_bucket" "fb_default" {
     provider = google-beta
     project  = var.gcp_project_id 
     name     = "${var.gcp_project_id}-fb-webapp"
     location = "US"
 }
 
+resource "google_storage_bucket" "gcp_default" {
+    provider = google-beta
+    project  = var.gcp_project_id 
+    name     = "${var.gcp_project_id}-bucket"
+    location = "US"
+}
+
 ## https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/firebase_web_app
 resource "google_storage_bucket_object" "default" {
     provider = google-beta
-    bucket   = google_storage_bucket.default.name
+    bucket   = google_storage_bucket.fb_default.name
     name     = "firebase-config.json"
 
     content = jsonencode({
@@ -56,7 +63,7 @@ resource "google_storage_bucket_object" "default" {
     })
 }
 
-
+## Create the Firebase configuration files
 locals {
   ## File: .firebaserc 
   project_config = {
@@ -65,7 +72,7 @@ locals {
     }
   }
 
-  ## File: firebase.json 
+  ## File: firebase.json - Hosting
   hosting_config = {
     "hosting": {
       "public": "web",
@@ -76,12 +83,37 @@ locals {
       ]
     }
   }
+
+  ## File: firebase.json - Hosting + Cloud Functions
+  firebase_config = {
+    "hosting": {
+      "public": "web",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    "functions": [
+      {
+        "source": "functions",
+        "codebase": "default",
+        "ignore": [
+          "node_modules",
+          ".git",
+          "firebase-debug.log",
+          "firebase-debug.*.log"
+        ]
+      }
+    ]
+  }
+
 }
 
 ## https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/firebase_web_app
 resource "google_storage_bucket_object" "rc" {
     provider = google-beta
-    bucket   = google_storage_bucket.default.name
+    bucket   = google_storage_bucket.fb_default.name
     name     = ".firebaserc"
 
     content = jsonencode(local.project_config)
@@ -90,10 +122,10 @@ resource "google_storage_bucket_object" "rc" {
 ## https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/firebase_web_app
 resource "google_storage_bucket_object" "json" {
     provider = google-beta
-    bucket   = google_storage_bucket.default.name
+    bucket   = google_storage_bucket.fb_default.name
     name     = "firebase.json"
 
-    content = jsonencode(local.hosting_config)
+    content = jsonencode(local.firebase_config)
 }
 
 
