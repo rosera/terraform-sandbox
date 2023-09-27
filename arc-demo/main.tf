@@ -53,18 +53,29 @@ resource "google_storage_bucket_object" "task_object" {
   bucket = module.la_gcs.gcs_bucket_name
 
   content = jsonencode({
-    "tasks": [
-      for task in var.tasks : {
-        tag      = "Task 1"
-        question = "Which league was used in this lab?" 
-        option_a = local.leagues[0]
-        option_b = local.leagues[1]
-        option_c = local.leagues[2]
-        option_d = local.leagues[3]
-        answer   = local.random_league
-      }
-    ],
+    "tasks": var.tasks,
     "author": "Rich Rose",
     "publish": "15th Aug 2023"
   })
 }
+
+## resource "google_storage_bucket_object" "task_object" {
+##   name = "tasks.json"
+##   bucket = module.la_gcs.gcs_bucket_name
+## 
+##   content = jsonencode({
+##     "tasks": [
+##       for task in var.tasks : {
+##         tag      = "Task 1"
+##         question = "Which league was used in this lab?" 
+##         option_a = local.leagues[0]
+##         option_b = local.leagues[1]
+##         option_c = local.leagues[2]
+##         option_d = local.leagues[3]
+##         answer   = local.random_league
+##       }
+##     ],
+##     "author": "Rich Rose",
+##     "publish": "15th Aug 2023"
+##   })
+## }

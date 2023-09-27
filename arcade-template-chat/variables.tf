@@ -19,14 +19,17 @@ variable "service_account_key_file" {
 }
 
 ## Soccer National Leagues
-variable "leagues" {
+## Type constraint:
+## title: String representing the title of the List e.g. "English Premier League"
+## members: List of Strings, separate each item with a comma e.g. "Arsenal", "Newcastle"
+variable "lab_list" {
   type = list(object({
-    league = string
+    title = string
     members = list(string)
   }))
   default = [
     {
-      "league" = "English Premier League"
+      "title" = "English Premier League"
       "members" = [
         "Manchester City",
         "Arsenal FC",
@@ -35,21 +38,21 @@ variable "leagues" {
       ]
     },
     {
-      "league" = "Spanish Liga"
+      "title" = "Spanish Liga"
       "members" = [
         "Real Madrid",
         "Barcelona",
       ]
     },
     {
-      "league" = "Italian Serie A"
+      "title" = "Italian Serie A"
       "members" = [
         "Atalanta",
         "Roma",
       ]
     },
     {
-      "league" = "German Bundesliga"
+      "title" = "German Bundesliga"
       "members" = [
         "Bayern Munich",
         "Wolfsburg",

@@ -3,18 +3,18 @@
 ## --------------------------------------------------------------
 
 # Terraform Output values
-# output "service_url" {
-#   value = module.la_cloud_run.gcr_service_url
-# }
+output "service_url" {
+  value = module.la_cloud_run.gcr_service_url
+}
  
-output "random_team" {
-    value = local.random_match_team 
+output "lab_item" {
+    value = local.random_item 
 }
 
-output "random_group" {
-    value = local.random_league_teams 
+output "lab_list" {
+    value = local.random_list 
 }
 
-output "random_league" {
-    value = local.random_league 
+output "lab_topic" {
+    value = local.lab_topic
 }
