@@ -16,8 +16,8 @@ variable "gcp_zone" {
 #
 # ------------------  Custom Properties
 #
-variable "allowed_regions" {
-  type = list 
+variable "gcp_allowed_regions" {
+  type = list(string) 
   description = "List of Regions to be used"
   default = ["us-central1", "us-east1", "us-east4", "us-west1" ]
 }

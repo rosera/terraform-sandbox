@@ -1,41 +1,55 @@
 ## Create a randomised region list
 
-# 1. Define an index based on available_zones
-# resource random_integer "random_index" {
-#   min = 0
-#   max = length(locals.list_length) -1
-# }
+# Define a random string to use as the seed for the shuffle
+resource "random_string" "shuffle_seed" {
+  length = 16
+  lower  = false
+}
 
-# 2. Create a filtered zone list - minus the current QL allocated zone
+## ---------------------------------------------------------------------------
+# Define a random shuffle using the list of allowed_regions variable
+resource "random_shuffle" "custom_regions" {
+  input = var.gcp_allowed_regions 
+  # result_count = length(var.gcp_allowed_regions) 
+  seed = random_string.shuffle_seed.result 
+}
+
+## ---------------------------------------------------------------------------
+# Create a filtered zone list - minus the current QL allocated zone
+# Two options presented:
+# Option 1 - Loop and remove the QL allocated region
+# Option 2 - Set subtract the QL allocated region
 locals {
   # Option 1. For Loop - Create a List 
   filtered_regions =  [
-  for region in var.allowed_regions:
+  # for region in var.gcp_allowed_regions:
+  for region in random_shuffle.custom_regions.result:
     region if region != var.gcp_region
   ]
 
   # Option 2. setsubtract - Create a List
-  filtered_regions2 = setsubtract(var.allowed_regions, [var.gcp_region])
-
-  
-#  list_length = length(filtered_regions)
-#  list_length2 = length(filtered_regions2)
-
-  # random_region  = local.filtered_regions[random_integer.random_index.result]
-#  random_region  = local.filtered_regions[random_integer.random_index.result]
+  filtered_regions2 = setsubtract(random_shuffle.custom_regions.result, [var.gcp_region])
 }
 
-# 3. Create an output variable for the random zone
-# output "region_random" {
-#   value = local.random_region
-# }
+## ---------------------------------------------------------------------------
+## REGION LIST ITEM
+# Create an output variable for the random zone
+output "region_primary" {
+  value = element(local.filtered_regions, 0)
+}
 
-# 4. Create an output variable for filtered_zones list
+output "region_secondary" {
+  value = element(local.filtered_regions, 1)
+}
+
+## ---------------------------------------------------------------------------
+## REGION LISTS
+# Create an output variable for filtered_zones list
 output "region_list" {
-  value = local.filtered_region
+  value = local.filtered_regions
 }
 
-# 5. Create an output variable for filtered_zones list
+# Create an output variable for filtered_zones list
 output "region_list2" {
-  value = local.filtered_region2
+  value = local.filtered_regions2
 }
