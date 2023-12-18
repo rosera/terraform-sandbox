@@ -6,22 +6,36 @@ gcloud config set project "$1"
 # Create CloudBuild script 
 cat << 'EOF' > cloudbuild.yaml 
 steps:
-- id: startup_script 
-  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  env:
-  - 'PROJECT_ID=${_PROJECT_ID}'
-  script: |
-    #!/bin/bash
+  # Copy across the remote files
+  - id: copy_gcs
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    env:
+      'PROJECT_ID=$PROJECT_ID'
+    script: |
+      #!/bin/bash
+      ## SCRIPT START
+      # Web App
+      gsutil -m cp -r gs://spls/arc-genai-chat/web /workspace
 
-    ## SCRIPT START
-    echo "Script for ${PROJECT_ID} - Replace with cool script"
-    # 1. gsutil gs://[PROJECT-bucket]-fb-webapp/.firebaserc /workspace
-    # 2. gsutil gs://[PROJECT-bucket]-fb-webapp/firebase.json /workspace
-    ## SCRIPT END 
-   
+      # Cloud Function
+      # gsutil -m cp -r gs://spls/arc-genai-chat/functions /workspace
+
+      # Firebase Configuration
+      gsutil -m cp -r gs://$PROJECT_ID-fb-webapp/* /workspace
+      ## SCRIPT END 
+
+  # Firebase Hosting: Chat APP
+  - id: firebase_hosting 
+    # Custom community builder image 
+    name: 'gcr.io/qwiklabs-resources/firebase'
+    args: ['deploy', '--project=$PROJECT_ID', '--only=hosting']
+
+  # Firebase Cloud Function: Cloud Storage Activity Tracking
+  #  - id: firebase_functions
+  #    # Custom community builder image 
+  #    name: 'gcr.io/qwiklabs-resources/firebase'
+  #    args: ['deploy', '--project=$PROJECT_ID', '--only=functions:createStorageFile']
 timeout: 900s
-substitutions:
-  _PROJECT_ID: project_id
 options:
   substitution_option: 'ALLOW_LOOSE'
 EOF

@@ -1,36 +1,11 @@
-## Firebase Application Configuration
+## Firebase Project Configuration
 
-output "appId" {
-  value       = "${google_firebase_web_app.basic.app_id}"
-  description = "Firebase application Identifier."
-}
-
-output "apiKey" {
- value       = "${data.google_firebase_web_app_config.basic.api_key}"
-  description = "Firebase API key."
-}
-
-output "authDomain" {
-  value       = "${data.google_firebase_web_app_config.basic.auth_domain}"
-  description = "Firebase authentication domain."
-}
-
-output "databaseURL" {
-  value       = "${lookup(data.google_firebase_web_app_config.basic, "database_url", "")}"
-  description = "Firebase authentication database url."
-}
-
-output "storageBucket" {
-  value       = "${lookup(data.google_firebase_web_app_config.basic, "storage_bucket", "")}"
-  description = "Firebase authentication storage bucket."
-}
-
-output "messageSenderId" {
-  value       = "${lookup(data.google_firebase_web_app_config.basic, "messaging_sender_id", "")}"
-  description = "Firebase authentication message sender identification."
-}
-
-output "measurementId" {
-  value       = "${lookup(data.google_firebase_web_app_config.basic, "measurement_id", "")}"
-  description = "Firebase authentication measurement identifier."
-}
+ output "firebase_project_id" {
+   value       = "${google_firebase_project.default.project}"
+   description = "Firebase Project identifier."
+ }
+ 
+ output "firebase_project_number" {
+   value       = "${google_firebase_project.default.project_number}"
+   description = "Firebase Project number."
+ }

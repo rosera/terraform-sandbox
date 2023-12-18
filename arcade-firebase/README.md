@@ -1,5 +1,84 @@
 # Firebase Web
 
+* console.cloud.google.com
+* console.firebase.google.com
+
+
+## Cloud Build
+
+* Create a custom image for Firebase deploy
+```
+steps:
+  # Copy across the remote files
+  - id: copy_gcs
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    env:
+      'PROJECT_ID=$PROJECT_ID'
+    script: |
+      #!/bin/bash
+      ## SCRIPT START
+      # Web App
+      gsutil -m cp -r gs://spls/arc-genai-chat/web /workspace
+      # Cloud Function
+      gsutil -m cp -r gs://spls/arc-genai-chat/functions /workspace
+      # Firebase Configuration
+      gsutil -m cp -r gs://$PROJECT_ID-fb-webapp/* /workspace
+      ## SCRIPT END 
+  # Firebase Hosting: Chat APP
+  - id: firebase_hosting 
+    # Custom community builder image 
+    name: 'gcr.io/qwiklabs-resources/firebase'
+    args: ['deploy', '--project=$PROJECT_ID', '--only=hosting']
+  # Firebase Cloud Function: Cloud Storage Activity Tracking
+  - id: firebase_functions
+    # Custom community builder image 
+    name: 'gcr.io/qwiklabs-resources/firebase'
+    args: ['deploy', '--project=$PROJECT_ID', '--only=functions:createStorageFile']
+timeout: 900s
+options:
+  substitution_option: 'ALLOW_LOOSE'
+```
+
+
+Copy the remote gcs bucket content
+
+* functions
+* nginx
+* web
+
+
+```
+gsutil -m cp -r gs://spls/arc-genai-chat/* /workspace 
+```
+
+Copy the project specific Firebase configuration
+
+* `.firebaserc`
+* `firebase-config.json`
+* `firebase.json`
+
+```
+gsutil -m cp -r gs://qwiklabs-gcp-00-c3695e9f8855-fb-webapp/* /workspace
+```
+
+
+Deploy the `web` folder (defined in the firebase.json) to Firebase Hosting
+__NOTE:__ When deploying with CloudBuild, amend the distribution path to:
+```
+/workspace/web
+```
+
+```
+firebase deploy --only hosting
+```
+
+The Firebase Hosting site is accessible at `[PROJECT_ID].web.app`
+
+## Firebase Configurations
+
+Terraform is used to generate Firebase JSON configuration files
+
+
 ## Configuration files
 
 gs://spls/arc-genai-chat/
@@ -13,16 +92,20 @@ gs://spls/arc-genai-chat/web/
 gsutil -m cp -r gs://spls/arc-genai-chat/functions .
 ```
 
+__NOTE:__
+If using CloudBuild replace `.` with `/workspace`
 
 
 ## Firebase Config 
 
+Firebase configuration is normally performed by `firebase init`.
 1. Init the folder
 ```bash
 firebase init
 ```
 
-In the example below: Hosting and Cloud Functions are the selected Firebase services
+Alternatively the configuration files can be generated manually as shown below.
+
 
 The following files will be added:
 
