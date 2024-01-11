@@ -44,7 +44,7 @@ async function googleStorageAPI() {
 // Entrypoint
 exports.createStorageFile=(req, res)=>{
   // Set the test data {"message": "Log Data"}
-  let message = req.query.message || req.body.message || 'Hello World!';
+  let message = req.query.message || req.body.message || 'Arcade API!';
 
   // Validate access
   if (message === 'arcade'){
@@ -53,8 +53,8 @@ exports.createStorageFile=(req, res)=>{
 
     // Respond with success.
     res.status(200).send('Storage file created successfully.');
+  } else {
+    // Invalid query param
+    res.status(400).send('Accessing storage function.');
   }
-
-  // Invalid query param
-  res.status(400).send('Accessing storage function.');
 }
