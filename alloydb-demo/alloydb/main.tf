@@ -47,42 +47,71 @@ resource "google_service_networking_connection" "default" {
 ## https://github.com/GoogleCloudPlatform/terraform-google-alloy-db/blob/main/variables.tf
 ## Create AlloyDB Cluster
 
-resource "google_alloydb_cluster" "default" {
-  cluster_id = "alloydb-aip-01"
-  location   = var.gcp_region 
-  project    = var.gcp_project_id 
-
-##   network    = data.google_compute_network.gcp-network.id
-  network_config {
-    network    = data.google_compute_network.gcp-network.id
-  }
-
-  initial_user {
-    user     = var.alloydb_user 
-    password = var.alloydb_password 
-  }
-
-  depends_on = [ data.google_compute_network.gcp-network, google_project_service.tlf  ]
-}
-
-
-## Create Ally Primary Instance
-resource "google_alloydb_instance" "default" {
-  cluster           = google_alloydb_cluster.default.name
-  instance_id       = "alloydb-instance"
-  instance_type     = "PRIMARY"
-  display_name      = "alloydb-aip-01-pr"
-
-  gce_zone          = var.gcp_zone
-  availability_type = "ZONAL"
-
-  machine_config {
-    cpu_count = 2
-  }
-
-  # Add a dependency on the Project network
-  depends_on = [ google_service_networking_connection.default ]
-}
+## resource "google_alloydb_cluster" "default" {
+##   cluster_id = "alloydb-aip-01"
+##   location   = var.gcp_region 
+##   project    = var.gcp_project_id 
+## 
+## ##   network    = data.google_compute_network.gcp-network.id
+##   network_config {
+##     network    = data.google_compute_network.gcp-network.id
+##   }
+## 
+##   initial_user {
+##     user     = var.alloydb_user 
+##     password = var.alloydb_password 
+##   }
+## 
+##   depends_on = [ data.google_compute_network.gcp-network, google_project_service.tlf  ]
+## }
+## 
+## 
+## ## Create Ally Primary Instance
+## resource "google_alloydb_instance" "default" {
+##   cluster           = google_alloydb_cluster.default.name
+##   instance_id       = "alloydb-instance"
+##   instance_type     = "PRIMARY"
+##   display_name      = "alloydb-aip-01-pr"
+## 
+##   gce_zone          = var.gcp_zone
+##   availability_type = "ZONAL"
+## 
+##   machine_config {
+##     cpu_count = 2
+##   }
+## 
+##   # Add a dependency on the Project network
+##   depends_on = [ google_service_networking_connection.default ]
+## }
+ 
+##----------------------------------------------------------------------------
+## ## Bind role/permission to AlloyDB service account 
+## 
+## # Module: Bind role/permissions
+## locals {
+##   # Service account for AlloyDB
+##   service_account = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-alloydb.iam.gserviceaccount.com"
+## }
+## 
+## resource "time_sleep" "action_wait_duration" {
+##   create_duration = var.gcp_wait_duration 
+##   depends_on  = [ google_project_service.tlf ] 
+## }
+## 
+## resource "google_project_iam_member" "tlf" {
+##   for_each = {
+##     for idx, role in var.gcp_role_list: idx => {
+##       member = local.service_account
+##       role   = role 
+##     }
+##   }
+## 
+##   project = var.gcp_project_id 
+##   member  = local.service_account 
+##   role    = each.value.role
+## 
+##   depends_on  = [ time_sleep.action_wait_duration, google_alloydb_instance.default ] 
+## }
 
 ##----------------------------------------------------------------------------
 ## Create GCE Instance 
@@ -124,33 +153,4 @@ resource "google_compute_instance" "gce_virtual_machine" {
     email = var.gce_service_account == null ? null : var.gce_service_account
     scopes = var.gce_scopes
   }
-}
-
-##----------------------------------------------------------------------------
-## Bind role/permission to AlloyDB service account 
-
-# Module: Bind role/permissions
-locals {
-  # Service account for AlloyDB
-  service_account = "serviceAccount:service-${data.google_project.project.number}@gcp-sa-alloydb.iam.gserviceaccount.com"
-}
-
-resource "time_sleep" "action_wait_duration" {
-  create_duration = var.gcp_wait_duration 
-  depends_on  = [ google_project_service.tlf ] 
-}
-
-resource "google_project_iam_member" "tlf" {
-  for_each = {
-    for idx, role in var.gcp_role_list: idx => {
-      member = local.service_account
-      role   = role 
-    }
-  }
-
-  project = var.gcp_project_id 
-  member  = local.service_account 
-  role    = each.value.role
-
-  depends_on  = [ time_sleep.action_wait_duration, google_alloydb_instance.default ] 
 }

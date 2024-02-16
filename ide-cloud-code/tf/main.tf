@@ -34,6 +34,9 @@ module "la_ccd" {
   gcp_region         = var.gcp_region 
   gcp_zone           = var.gcp_zone 
 
+  # Ref: Image Family
+  gceMachineImage    = "test-cloud-code"
+
   ## Properties: GCE 
   gceStartup         = "echo Hello"
   # "${file("./scripts/lab-init")}"
