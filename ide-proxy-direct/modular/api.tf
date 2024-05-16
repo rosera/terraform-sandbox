@@ -5,7 +5,8 @@
 
 # Module: Enable Google APIs
 module "la_api_batch" {
-  source = "github.com/CloudVLab/terraform-lab-foundation//basics/api_service/dev"
+  // source = "github.com/CloudVLab/terraform-lab-foundation//basics/api_service/dev"
+  source = "github.com/CloudVLab/terraform-lab-foundation//basics/api_service/stable/v1"
 
   # Pass values to the module
   gcp_project_id = var.gcp_project_id

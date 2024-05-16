@@ -1,0 +1,55 @@
+{# Environment provided properties #}
+{% set project = env["project"] %}
+{% set deployment = env["deployment"] %}
+{% set password = properties["userPassword"] %}
+{% set username = properties["userName"] %}
+{% set zone = properties["zone"] %}
+
+{# Machine properties #}
+{% set hostname = "prometheus-host" %}
+{% set startupScript = "startup_script.sh" %}
+{% set name = "default" %}
+
+{# Runtime config and software status waiter #}
+{% set RTCEndpoint = "https://runtimeconfig.googleapis.com/v1beta1" %}
+{% set timeout = "300s" %}
+{% set statusDeadline = 300 %}
+{% set statusPath = "status" %}
+
+{% set configName = deployment + "-config" %}
+{% macro configUrl() -%}
+{{ "%s/projects/%s/configs/%s"|format(RTCEndpoint, project, configName) }}
+{%- endmacro %}
+
+outputs:
+  - name: prometheus-host external IP address
+    value: $(ref.{{ hostname }}.externalIp)
+  - name: username
+    value: {{ username }}
+
+resources:
+  {# VM config #}
+  - name: {{ hostname }}
+    type: vm_template.jinja
+    properties:
+      hostname: {{ hostname }}
+      metadataItems:
+        status-config-url: {{ configUrl() }}
+        startup-script: {{ startupScript }}
+        status-timeout: {{ statusDeadline }}
+        username: {{ username }}
+        status-variable-path: {{ statusPath }}
+      zone: {{ zone }}
+      tagsItems: {{ name }}-tcp-9090-9100
+
+  {# Network Config #}
+  - name: {{ name }}-firewall-rules
+    type: firewall_template.jinja
+  
+  {# Runtime Config #}
+  - name: {{ configName }}
+    type: software_status.jinja
+    properties:
+      timeout: {{ timeout }}
+      waiterDependsOn:
+        - {{ hostname }}

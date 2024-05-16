@@ -17,7 +17,8 @@ module "la_df_webhook" {
 
 # Module: Cloud Functions
 module "la_gcf_mp" {
-  source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_function/stable"
+  # source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_function/stable"
+  source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_function/dev"
 
   # Pass values to the module
   gcp_project_id       = var.gcp_project_id
@@ -34,11 +35,13 @@ module "la_gcf_mp" {
   gcf_runtime          = "nodejs16"
   gcf_archive_object   = "mostplayed.zip"
   gcf_archive_source   = "./cf/mostplayed.zip"
+#  gcf_registry         = "CONTAINER_REGISTRY"
 }
 
 # Module: Cloud Functions
 module "la_gcf_ac" {
-  source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_function/stable"
+  # source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_function/stable"
+  source = "github.com/CloudVLab/terraform-lab-foundation//basics/cloud_function/dev"
 
   # Pass values to the module
   gcp_project_id       = var.gcp_project_id
@@ -55,4 +58,5 @@ module "la_gcf_ac" {
   gcf_runtime          = "nodejs16"
   gcf_archive_object   = "account.zip"
   gcf_archive_source   = "./cf/account.zip"
+#  gcf_registry         = "CONTAINER_REGISTRY"
 }
