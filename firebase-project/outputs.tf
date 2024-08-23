@@ -9,3 +9,8 @@
    value       = "${google_firebase_project.default.project_number}"
    description = "Firebase Project number."
  }
+
+ output "student_url" {
+   value       = "https://www.google.com"
+   description = "Firebase console url link"
+ }
