@@ -1,0 +1,19 @@
+{
+  "name": "arcade-gcs",
+  "version": "1.0.0",
+  "description": "Create an empty file in Cloud Storage for activity tracking",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "GCS",
+    "Arcade"
+  ],
+  "author": "Rich Rose",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
+    "@google-cloud/storage": "^7.0.1"
+  }
+}

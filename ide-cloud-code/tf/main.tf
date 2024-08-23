@@ -17,7 +17,7 @@
 # - live_service_url:       URL of Browser Proxy Service
 # - resource_instance_name: Name of the GCE instance
 
-module "la_ccd" {
+module "la_ide" {
   ## NOTE: When changing the `source` parameter
   ## `terraform init` is required
 
@@ -35,10 +35,9 @@ module "la_ccd" {
   gcp_zone           = var.gcp_zone 
 
   # Ref: Image Family
-  gceMachineImage    = "test-cloud-code"
+  gceMachineImage    = "test-cloud-codeserver "
 
   ## Properties: GCE 
   gceStartup         = "echo Hello"
   # "${file("./scripts/lab-init")}"
 }
-

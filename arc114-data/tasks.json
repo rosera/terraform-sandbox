@@ -1,0 +1,17 @@
+{
+  "author": "Rich Rose",
+  "endpoint": "/arcade-1",
+  "publish": "18th Jan 2024",
+  "tasks": [
+    {
+      "answer": "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
+      "option_a": "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
+      "option_b": "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
+      "option_c": "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
+      "option_d": "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
+      "question": "EHR wants to connect one of their data centers to Google Cloud. The data center is in a remote location over 100 kilometers from a Google-owned point of presence. They can\\'t afford new hardware, but their existing firewall can accommodate future throughput growth. The also shared these data points: Servers in their on-premises data centre need to talk to Google Kubernetes Engine (GKE) resources in the cloud. Both on-premises servers and cloud resources are configured with private RFC 1918 IP addresses. The service provider has informed the customer that basic internet connectivity is a best-effort service with no SLA. You need to recommend a connectivity option. What should you recommend?",
+      "tag": "Task 1"
+    }
+  ],
+  "uri": "us-central1-qwiklabs-gcp-03-a19294ea5107.cloudfunctions.net"
+}
