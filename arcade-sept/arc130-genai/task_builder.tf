@@ -54,5 +54,3 @@ resource "google_storage_bucket_object" "task_object" {
     "endpoint": "/arcade-1"
   })
 }
-
-
