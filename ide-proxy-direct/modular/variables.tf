@@ -38,7 +38,7 @@ variable "gcp_username" {
 variable "vpcNetworkName" {
   type        = string
   description = "Custom network"
-  default     = "dev-network"
+  default     = "cls-network"
 }
 
 # Custom properties with defaults 
@@ -52,7 +52,7 @@ variable "vpcSubnetName" {
 variable "vpcDescription" {
   type        = string
   description = "Custom network"
-  default     = "Lab custom network"
+  default     = "CLS custom network"
 }
 
 # Custom properties with defaults 
@@ -61,20 +61,14 @@ variable "vpcSubnetCidr" {
   default = "10.1.0.0/24"
 }
 
-# Custom properties with defaults 
-variable "vpcDefaultCidr" {
-  type    = string
-  default = "10.128.0.0/9"
-}
-
-# Custom properties with defaults 
-variable "vpcConnectorMachineType" {
-  type        = string 
-  description = "VPC Access Connector Machine Type"
-  # Note: valid options: f1-micro, e2-micro, e2-standard-4
-  default     = "e2-micro" 
-}
-
+## # Custom properties with defaults 
+## variable "vpcConnectorMachineType" {
+##   type        = string 
+##   description = "VPC Access Connector Machine Type"
+##   # Note: valid options: f1-micro, e2-micro, e2-standard-4
+##   default     = "e2-micro" 
+## }
+## 
 variable "gcrIDEService" {
   type        = string
   description = "Name of the proxy service"
@@ -108,18 +102,18 @@ variable "gceInstanceName" {
   default     = "cloudlearningservices"
 }
 
-# Custom properties with defaults 
-variable "gceInstanceZone" {
-  type        = string 
-  description = "Zone to create resources in."
-  default     = "us-central1-f" 
-}
+## # Custom properties with defaults 
+## variable "gceInstanceZone" {
+##   type        = string 
+##   description = "Zone to create resources in."
+##   default     = "us-central1-f" 
+## }
 
 # Custom properties with defaults 
 variable "gceInstanceTags" {
   type        = list(string)
   description = "GCE virtual machine tags"
-  default     = ["lab-vm"]
+  default     = [ "cls-vm", "lab-vm" ]
 }
 
 # Custom properties with defaults 
@@ -143,37 +137,8 @@ variable "gceInstanceScope" {
   default     = ["cloud-platform"]
 }
 
-variable "isPrivateCluster" {
-  default = true
-  description = "True to spin up a private, secure cluster. False to spin up a public cluster."
-}
-
 variable "isCustomNetwork" {
-  default = true
+  type        = bool 
   description = "True to utilize custom network resources. False to switch to default network."
+  default = true
 }
-
-
-## GKE Settings
-#
-
-# Custom properties with defaults 
-variable "gkeClusterName" {
-  type        = string
-  description = "GKE Cluster name."
-  default     = "dev-cluster" 
-}
-
-# Custom properties with defaults 
-variable "gkeMasterIPv4CIDRBlock" {
-  type    = string
-  default = "172.23.0.0/28"
-}
-
-# Custom properties with defaults 
-variable "gkeRegion" {
-  type        = string 
-  description = "Region to create resources in."
-  default     = "us-central1" 
-}
-
