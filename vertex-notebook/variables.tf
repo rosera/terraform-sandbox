@@ -9,7 +9,3 @@ variable "gcp_region" {
 variable "gcp_zone" {
   type = string
 }
-
-variable "tfUsername" {
-  type = string
-}

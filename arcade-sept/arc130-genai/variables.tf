@@ -34,7 +34,7 @@ variable "lab_persona" {
 variable "lab_topic" {
   type        = string
   description = "The topic area to be covered"
-  default     = "2024 Paris Olympics, France"
+  default     = "2024 French Olympics, Paris events"
 }
 
 variable "lab_context" {

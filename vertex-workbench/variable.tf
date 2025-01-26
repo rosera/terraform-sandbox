@@ -35,17 +35,49 @@ variable "vai_machine_type" {
 }
 
 # Custom properties with defaults
+variable "vai_accelerator_type" {
+  type        = string
+  # Cannot use accelerator with E series machine type
+  description = "Accelerator type for machine Type"
+  # Ref: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/workbench_instance#type
+  # default     = "NVIDIA_TESLA_T4" 
+  default     = null
+}
+
+# Custom properties with defaults
 variable "vai_tags" {
   type        = list(string)
-  description = "GCE virtual machine tags"
-  default     = ["tlf", "cls"]
+  description = " Vertex Workbench virtual machine tags"
+  default     = [ "tlf", "cls", "lab-vm" ]
 }
 
 # Custom properties with defaults
 variable "vai_machine_network" {
   type        = string
   description = "GCE virtual machine network"
-  default     = "default"
+  default     = null
+}
+
+# Custom properties with defaults
+variable "vai_machine_subnet" {
+  type        = string
+  description = "GCE virtual machine network"
+  # default     = "default"
+  default     = null 
+}
+
+# Custom properties with defaults
+variable "vai_network_nic_type" {
+  type        = string
+  description = "Network Interface Card type"
+  default     = "VIRTIO_NET"
+}
+
+# Custom properties with defaults
+variable "vai_network_stack_type" {
+  type        = string
+  description = "Network stack IPV4 or IPV6"
+  default     = "IPV4_ONLY"
 }
 
 # Custom properties with defaults
