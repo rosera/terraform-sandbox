@@ -27,7 +27,9 @@ locals {
     # module.fw_inbound_create.task,
     # module.fw_outbound_create.task,
     # module.fw_sourcetag_create.task,
-    module.ar_repo_create.task,
+    module.firestore_db_create.task,
+    module.firestore_db_collection.task,
+    # module.ar_repo_create.task,
 
     # ... Add more tasks
   ]

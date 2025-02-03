@@ -10,7 +10,7 @@
 #-----------------------------------------------------------------------------
 locals {
   ## Define a Lab topic
-  lab_topic = "Artifact Registry Policy"
+  lab_topic = "Networking"
 }
 
 

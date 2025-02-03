@@ -10,7 +10,7 @@
 #-----------------------------------------------------------------------------
 locals {
   ## Define a Lab topic
-  lab_topic = "Artifact Registry Policy"
+  lab_topic = "Cloud Run Developer"
 }
 
 
@@ -27,7 +27,9 @@ locals {
     # module.fw_inbound_create.task,
     # module.fw_outbound_create.task,
     # module.fw_sourcetag_create.task,
-    module.ar_repo_create.task,
+    module.cr_private_create.task,
+    module.cr_public_create.task,
+    # module.ar_repo_create.task,
 
     # ... Add more tasks
   ]

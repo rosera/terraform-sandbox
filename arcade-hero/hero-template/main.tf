@@ -10,7 +10,7 @@
 #-----------------------------------------------------------------------------
 locals {
   ## Define a Lab topic
-  lab_topic = "Artifact Registry Policy"
+  lab_topic = "Arcade Hero Template"
 }
 
 
@@ -19,15 +19,27 @@ locals {
 #-----------------------------------------------------------------------------
 locals {
   tasks = [
-    # module.gcs_bucket_create.task,
-    # module.bq_dataset_create.task,
-    # module.vpc_network_create.task,
-    # module.vpc_subnet_create.task,
-    # module.pubsub_topic_create.task,
+    module.ar_repo_create_container.task,
+    module.ar_repo_create_npm.task,
+    module.bq_dataset_create.task,
+    module.bq_table_create.task,
+    # module.bq_view_create.task,
+    module.cr_private_create.task,
+    module.cr_public_create.task,
+    module.firestore_db_create.task,
+    module.firestore_db_collection.task,
     # module.fw_inbound_create.task,
     # module.fw_outbound_create.task,
     # module.fw_sourcetag_create.task,
-    module.ar_repo_create.task,
+    module.gcs_bucket_create.task,
+    module.gcs_bucket_public.task,
+    module.gcs_bucket_object.task,
+    module.iam_bind_storage.task,
+    module.iam_bind_compute.task,
+    module.pubsub_topic_create.task,
+    module.pubsub_subscription_create.task,
+    module.vpc_network_create.task,
+    module.vpc_subnet_create.task,
 
     # ... Add more tasks
   ]

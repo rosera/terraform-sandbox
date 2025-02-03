@@ -25,7 +25,7 @@ variable "gcp_table_name" {
 variable "gcp_view_name" {
   type        = string
   description = "BQ View name"
-  default     = "relagation"
+  default     = "relegation"
 }
 
 
@@ -81,10 +81,10 @@ module "bq_table_create" {
   ref        = "bq-2"
   title      = "Create a BigQuery table"  
   image      = var.gcp_bq_icon  
-  resource_name = "${var.gcp_dataset_name}" 
+  resource_name = "${var.gcp_table_name}" 
 
   challenges = [  
-    { step = "Create a new Dataset Table: \"${var.gcp_dataset_name}\".", command = "${var.gcp_dataset_name}"  }, 
+    { step = "Create a new Table: \"${var.gcp_table_name}\".", command = "${var.gcp_table_name}"  }, 
     { step = "Set the dataset \"Location type\" as Region.", command = ""  },  
     { step = "Select \"${var.gcp_region}\" from the available list.", command = ""  },  
     # ... more challenges 
@@ -95,10 +95,10 @@ module "bq_table_create" {
     { step = "Find the project labelled \"${var.gcp_project_id}.", command = "" },  
     { step = "Click the \"Action\" button (represented by three vertical dots).", command = ""  },  
     { step = "Click the \"Create dataset\" option.", command = ""  },  
-    { step = "Enter the dataset name as \"${var.gcp_dataset_name}\".", command = "${var.gcp_dataset_name}"  },  
+    { step = "Enter the table name as \"${var.gcp_table_name}\".", command = "${var.gcp_table_name}"  },  
     { step = "Set the dataset \"Location type\" as Region.", command = ""  }, 
     { step = "Select \"${var.gcp_region}\" from the available list.", command = ""  }, 
-    { step = "Click the \"CREATE DATASET\" button at the bottom of the screen.", command = ""  }, 
+    { step = "Click the \"CREATE TABLE\" button at the bottom of the screen.", command = ""  }, 
     { step = "The task is now complete.", command = ""  },  
     # ... more instructions 
   ] 

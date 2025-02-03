@@ -8,7 +8,7 @@ output "service_url" {
 }
 
 output "bucket" {
-  value = "${var.gcp_project_id}-${var.gcp_bucket_name}"
+  value = "${var.gcp_project_id}-${var.gcp_bucket_1_name}"
 }
 
 output "repo" {
@@ -35,7 +35,7 @@ variable "gcp_icon" {
 
 ## GETTER: storage.get_storage
 output "gcs_bucket_name" {
-  value = "${var.gcp_project_id}-${var.gcp_bucket_name}"
+  value = "${var.gcp_project_id}-${var.gcp_bucket_1_name}"
 }
 
 ## GETTER: bq.get_dataset
@@ -60,17 +60,17 @@ output "pubsub_sub_name" {
 
 ## GETTER: vpc.get_network
 output "vpc_network1_name" {
-  value = "${var.gcp_vpc1_name}"
+  value = "${var.gcp_vpc_1_name}"
 }
 
 ## GETTER: vpc.get_network
 output "vpc_network2_name" {
-  value = "${var.gcp_vpc2_name}"
+  value = "${var.gcp_vpc_2_name}"
 }
 
 ## GETTER: vpc.get_subnetwork
 output "vpc_subnetwork1_name" {
-  value = "${var.gcp_subnet1_name}"
+  value = "${var.gcp_vpc_2_subnet_1_name}"
 }
 
 ## GETTER: TBC 
@@ -105,10 +105,10 @@ output "iam_sa_name" {
 
 ## GETTER: TBC 
 output "ar_repo_name" {
-  value = "${var.gcp_ar_name}"
+  value = "${var.gcp_ar_1_name}"
 }
 
 ## GETTER: TBC 
 output "ar_repo_type" {
-  value = "${var.gcp_ar_type}"
+  value = "${var.gcp_ar_1_type}"
 }

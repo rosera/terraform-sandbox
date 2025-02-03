@@ -60,13 +60,13 @@ variable "gcp_vpc_2_name" {
   default     = "development"
 }
 
-variable "gcp_subnet_1_name" {
+variable "gcp_vpc_2_subnet_1_name" {
   type        = string
   description = "Subnet name"
   default     = "dev-1"
 }
 
-variable "gcp_subnet_1_cidr" {
+variable "gcp_vpc_2_subnet_2_cidr" {
   type        = string
   description = "Subnet cidr"
   default     = "10.1.0.0/24"
@@ -91,9 +91,9 @@ module "vpc_subnet_create" {
 
   challenges = [
     { step = "Name the custom VPC network as \"${var.gcp_vpc_2_name}\".", command = "${var.gcp_vpc_2_name}" },
-    { step = "Create a subnet as \"${var.gcp_subnet_1_name}\".", command = "${var.gcp_subnet_1_name}" },
+    { step = "Create a subnet as \"${var.gcp_vpc_2_subnet_1_name}\".", command = "${var.gcp_vpc_2_subnet_1_name}" },
     { step = "Set the subnet region: \"${var.gcp_region}\"", "command": "${var.gcp_region}" }, 
-    { step = "Add a valid CIDR block for the subnet (e.g., ${var.gcp_subnet_1_cidr}).", "command": "${var.gcp_subnet_1_cidr}" }, 
+    { step = "Add a valid CIDR block for the subnet (e.g., ${var.gcp_vpc_2_subnet_2_cidr}).", "command": "${var.gcp_vpc_2_subnet_2_cidr}" }, 
     { step = "Do not add any Firewall rules.", command = "" },
     # ... more challenges
   ]
@@ -106,10 +106,10 @@ module "vpc_subnet_create" {
     { "step": "Select \"Custom\" subnet creation mode. This option allows you to define your own subnets and their IP address ranges.", "command": "" },
     # { "step": "Select the subnet delete icon to remove this configuration from the VPC.", "command": "" },
     # { "step": "Create a subnet:**  Provide the following details:", "command": "" }, 
-    { "step": "Enter the subnet name as \"${var.gcp_subnet_1_name}\" for your new subnetwork.", "command": "${var.gcp_subnet_1_name}" },
+    { "step": "Enter the subnet name as \"${var.gcp_vpc_2_subnet_1_name}\" for your new subnetwork.", "command": "${var.gcp_vpc_2_subnet_1_name}" },
     # { "step": "Subnet name:  descriptive name for your subnet.", "command": "" }, 
     { "step": "Assign the Region as \"${var.gcp_region}\"", "command": "${var.gcp_region}" }, 
-    { "step": "Add a valid CIDR block for the subnet (e.g., ${var.gcp_subnet_1_cidr}).", "command": "${var.gcp_subnet_1_cidr}" }, 
+    { "step": "Add a valid CIDR block for the subnet (e.g., ${var.gcp_vpc_2_subnet_2_cidr}).", "command": "${var.gcp_vpc_2_subnet_2_cidr}" }, 
     # { "step": "Add more subnets (optional):** If needed, create additional subnets in different regions or with different IP address ranges.", "command": "" },
     # { "step": "Configure firewall rules (optional):**  You can choose to add firewall rules immediately to control inbound and outbound traffic within the VPC.", "command": "" }, 
     # { "step": "Select 'Dynamic' routing mode:**  This is generally recommended for flexible VPC setups.", "command": "" },

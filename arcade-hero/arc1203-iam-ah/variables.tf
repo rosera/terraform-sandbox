@@ -17,3 +17,9 @@ variable "service_account_key_file" {
   type        = string
   description = "key file location"
 }
+
+variable "gcp_user_1" {
+  type = string
+}
+
+

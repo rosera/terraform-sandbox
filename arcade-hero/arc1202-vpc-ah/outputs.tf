@@ -60,37 +60,37 @@ output "pubsub_sub_name" {
 
 ## GETTER: vpc.get_network
 output "vpc_network1_name" {
-  value = "${var.gcp_vpc1_name}"
+  value = "${var.gcp_vpc_1_name}"
 }
 
 ## GETTER: vpc.get_network
 output "vpc_network2_name" {
-  value = "${var.gcp_vpc2_name}"
+  value = "${var.gcp_vpc_2_name}"
 }
 
 ## GETTER: vpc.get_subnetwork
 output "vpc_subnetwork1_name" {
-  value = "${var.gcp_subnet1_name}"
+  value = "${var.gcp_vpc_2_subnet_1_name}"
 }
 
 ## GETTER: TBC 
 output "fw_rule1_name" {
-  value = "${var.gcp_fw1_name}"
+  value = "${var.gcp_fw_1_name}"
 }
 
 ## GETTER: TBC 
 output "fw_rule1_direction" {
-  value = "${var.gcp_direction1_name}"
+  value = "${var.gcp_fw_1_direction1_name}"
 }
 
 ## GETTER: TBC 
-output "fw_target1_tag" {
-  value = "${var.gcp_target1_tag}"
+output "gcp_fw_1_target1_tag" {
+  value = "${var.gcp_fw_1_target1_tag}"
 }
 
 ## GETTER: TBC 
-output "fw_target2_tag" {
-  value = "${var.gcp_target2_tag}"
+output "gcp_fw_1_target2_tag" {
+  value = "${var.gcp_fw_1_target2_tag}"
 }
 
 ## GETTER: TBC 

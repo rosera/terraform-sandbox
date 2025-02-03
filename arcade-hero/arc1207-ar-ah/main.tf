@@ -27,7 +27,7 @@ locals {
     # module.fw_inbound_create.task,
     # module.fw_outbound_create.task,
     # module.fw_sourcetag_create.task,
-    module.ar_repo_create_docker.task,
+    module.ar_repo_create_container.task,
     module.ar_repo_create_npm.task,
 
     # ... Add more tasks

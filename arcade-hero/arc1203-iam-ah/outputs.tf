@@ -30,7 +30,8 @@ variable "gcp_icon" {
   type        = string
   description = "Resource Icon"
   # default     = "https://storage.googleapis.com/spls/arc-hero/assets/images/virtual_private_cloud.png"
-  default     = "https://storage.googleapis.com/spls/arc-hero/assets/images/cloud_firewall_rules.png"
+  # default     = "https://storage.googleapis.com/spls/arc-hero/assets/images/cloud_firewall_rules.png"
+  default     = "https://storage.googleapis.com/spls/arc-hero/assets/images/identity_and_access_management.png"
 }
 
 ## GETTER: storage.get_storage

@@ -26,7 +26,7 @@ variable "gcp_fw_1_target1_tag" {
   default     = "staging-vm"
 }
 
-variable "gcp__fw_1_target2_tag" {
+variable "gcp_fw_1_target2_tag" {
   type        = string
   description = "Firewall target tag"
   default     = "prod-vm"

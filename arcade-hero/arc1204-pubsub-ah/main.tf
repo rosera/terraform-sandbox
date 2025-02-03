@@ -10,7 +10,7 @@
 #-----------------------------------------------------------------------------
 locals {
   ## Define a Lab topic
-  lab_topic = "Artifact Registry Policy"
+  lab_topic = "Cloud PubSub"
 }
 
 
@@ -23,11 +23,12 @@ locals {
     # module.bq_dataset_create.task,
     # module.vpc_network_create.task,
     # module.vpc_subnet_create.task,
-    # module.pubsub_topic_create.task,
+    module.pubsub_topic_create.task,
+    module.pubsub_subscription_create.task,
     # module.fw_inbound_create.task,
     # module.fw_outbound_create.task,
     # module.fw_sourcetag_create.task,
-    module.ar_repo_create.task,
+    # module.ar_repo_create.task,
 
     # ... Add more tasks
   ]

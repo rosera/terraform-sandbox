@@ -22,7 +22,7 @@ locals {
     # module.gcs_bucket_create.task,
     module.bq_dataset_create.task,
     module.bq_table_create.task,
-    module.bq_view_create.task,
+    # module.bq_view_create.task,
     # module.vpc_network_create.task,
     # module.vpc_subnet_create.task,
     # module.pubsub_topic_create.task,

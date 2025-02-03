@@ -105,10 +105,10 @@ output "iam_sa_name" {
 
 ## GETTER: TBC 
 output "ar_repo_name" {
-  value = "${var.gcp_ar_name}"
+  value = "${var.gcp_ar_1_name}"
 }
 
 ## GETTER: TBC 
 output "ar_repo_type" {
-  value = "${var.gcp_ar_type}"
+  value = "${var.gcp_ar_1_type}"
 }
