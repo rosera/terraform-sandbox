@@ -23,12 +23,6 @@ List of available Modules
 - [ ] Load Data into a Table
 
 ### Activity Tracking 
-| Service | Method | Action | Link |
-|---------|--------|--------|------|
-|         |        |        | [Link]() |
-
-
-### Activity Tracking 
 
 | Service | Method | Action | Link |
 |---------|--------|--------|------|
@@ -46,7 +40,11 @@ List of available Modules
 ### Activity Tracking 
 | Service | Method | Action | Link |
 |---------|--------|--------|------|
-|         |        |        | [Link]() |
+| Compute | get_network | Check if a `network` is defined within a project | [Link](https://github.com/CloudVLab/terraform-lab-foundation/tree/main/activity-tracking/vpc_network_create) |
+| Compute | get_subnetwork | Check if a `subnetwork` is defined within a project | [Link](https://github.com/CloudVLab/terraform-lab-foundation/tree/main/activity-tracking/vpc_subnet_create) |
+| Compute | get_firewall | Check if a `firewall rule` is defined within a project | [Link](https://github.com/CloudVLab/terraform-lab-foundation/tree/main/activity-tracking/fw_rule_create) |
+| Compute | get_firewall | Check if a `ingress firewall rule` is defined within a project | [Link](https://github.com/CloudVLab/terraform-lab-foundation/tree/main/activity-tracking/fw_ingress_create) |
+| Compute | get_firewall | Check if a `target tag firewall rule` is defined within a project | [Link](https://github.com/CloudVLab/terraform-lab-foundation/tree/main/activity-tracking/fw_tag_create) |
 
 
 ## Identity And Access Management
@@ -71,6 +69,7 @@ List of available Modules
 |---------|--------|--------|------|
 | PubSub | get_subscription | Check if a `Subscription` is defined within a project | [Link](https://github.com/CloudVLab/terraform-lab-foundation/tree/main/activity-tracking/pubsub_sub_create) |
 | PubSub | get_topic | Check if a `Topic` is defined within a project | [Link](https://github.com/CloudVLab/terraform-lab-foundation/tree/main/activity-tracking/pubsub_topic_create) |
+
 
 ## Cloud Run
 
