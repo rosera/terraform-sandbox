@@ -1,5 +1,0 @@
-{
-  "tasks": [
-    { "ref": "Task 1", "title": "Static Landing Page", "instructions": [ { "step": "I have created a landing page landing-page.zip." }, { "step": "Can you create a bucket and host the web page." },{ "step": "The bucket should be made public." } ], "image": "TBC", "topic": "Web hosting" }
-  ]
-}

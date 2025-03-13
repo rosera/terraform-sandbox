@@ -1,1 +1,0 @@
-sed -i 's/n1-standard-[0-9]*/e2-standard-2/g' new.yaml

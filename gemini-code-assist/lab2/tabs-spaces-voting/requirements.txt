@@ -1,6 +1,0 @@
-Flask==3.0.0
-pg8000==1.30.4
-SQLAlchemy==2.0.25
-cloud-sql-python-connector==1.5.0
-gunicorn==21.2.0
-Werkzeug==3.0.1

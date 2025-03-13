@@ -1,2 +1,0 @@
-## Expose Resource properties
-

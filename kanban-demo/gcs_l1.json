@@ -1,7 +1,0 @@
-{
-  "tasks": [
-    { "ref": "Task 1", "title": "Create a Private Bucket", "instructions": [ { "step": "Step 1: Open Google Cloud Console" }, { "step": "Step 2: Click on GCS" },{ "step": "Step 3: Create a Bucket" } ], "image": "TBC", "topic": "Storage" },
-    { "ref": "Task 2", "title": "Create a Public Bucket", "instructions": [ { "step": "Step 1: Open Google Cloud Console" }, { "step": "Step 2: Click on GCS" }, { "step": "Step 3: Create a Bucket" } ], "image": "TBC", "topic": "Storage" },
-    { "ref": "Task 3", "title": "Create a Regional Bucket", "instructions": [ { "step": "Step 1: Open Google Cloud Console"}, { "step": "Step 2: Click on GCS" }, {"step": "Step 3: Create a Bucket" } ], "image": "TBC", "topic": "Storage" }
-  ]
-}

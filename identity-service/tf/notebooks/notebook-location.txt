@@ -1,5 +1,0 @@
-Notebook location: https://github.com/GoogleCloudPlatform/generative-ai/blob/main/gemini/qa-ops/intro_Vertex_AI_embeddings.ipynb
-
-# CHANGELOG
-
-1. `Google's` in video url changed to `Googles`

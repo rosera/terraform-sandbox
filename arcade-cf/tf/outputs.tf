@@ -1,1 +1,0 @@
-## Expose Cloud Firestore properties

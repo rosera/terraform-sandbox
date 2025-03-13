@@ -1,1 +1,0 @@
-## Expose Terraform resource properties
