@@ -1,0 +1,55 @@
+{# Environment provided properties #}
+{% set deployment = env["deployment"] %}
+{% set project = env["project"] %}
+
+{# Properties required from the parent template #}
+{% set metadataItems = properties["metadataItems"] %}
+{% set tagsItems = properties["tagsItems"] %}
+{% set hostname = properties["hostname"] %}
+{% set network = properties["network"] %}
+{% set zone = properties["zone"] %}
+
+outputs:
+  - name: externalIp
+    value: $(ref.{{ hostname }}.networkInterfaces[0].accessConfigs[0].natIP)
+
+resources:
+  - name: {{ hostname }}
+    type: compute.v1.instance
+    properties:
+      zone: {{ zone }}
+      machineType: projects/{{ project }}/zones/{{ zone }}/machineTypes/n1-standard-1
+      canIpForward: true
+      disks:
+      - deviceName: boot
+        type: PERSISTENT
+        boot: true
+        autoDelete: true
+        initializeParams:
+          sourceImage: projects/debian-cloud/global/images/family/debian-11
+          diskType: https://www.googleapis.com/compute/v1/projects/{{ project }}/zones/{{ zone }}/diskTypes/pd-standard
+          diskSizeGb: 10
+      networkInterfaces:
+      - network: global/networks/default
+        accessConfigs:
+        - name: External NAT
+          type: ONE_TO_ONE_NAT
+      tags:
+        items:
+          - {{ tagsItems }}
+      serviceAccounts:
+      - email: default
+        scopes:
+        - https://www.googleapis.com/auth/cloud-platform
+      metadata:
+        items:
+        {% for key, value in metadataItems.items() %}
+        {% if key == "startup-script" %}
+          - key: {{ key }}
+            value: |
+              {{ imports[value]|indent(15) }}
+        {% else %}
+          - key: {{ key }}
+            value: {{ value }}
+        {% endif %}
+        {% endfor %}

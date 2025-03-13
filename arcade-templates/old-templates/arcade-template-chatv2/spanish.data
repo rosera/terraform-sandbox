@@ -1,0 +1,117 @@
+#
+# ------------------  Qwiklabs Values
+#
+variable "gcp_project_id" {
+  type = string
+}
+
+variable "gcp_region" {
+  type = string
+}
+
+variable "gcp_zone" {
+  type = string
+}
+
+variable "service_account_key_file" {
+  type = string
+  description = "key file location"
+}
+
+variable "container_image" {
+  type = string
+  description = "key file location"
+  default     = "arcade-frontend-chatv2"
+}
+
+## Lab Data List 
+variable "lab_topic" {
+  type        = string
+  description = "The topic area to be covered"
+  default     = "Spanish"
+}
+
+variable "lab_persona" {
+  type        = string
+  description = "Person to interact with in the chatbot"
+  default     = "Maria"
+}
+
+variable "lab_context" {
+  type        = string
+  description = "Context of the lab"
+  default     = "Bien, gracias"
+}
+
+## Type Constraint: Members == 4 | There are four options presented
+## title: String representing the title of the List e.g. "History, Geography, Artists"
+## members: List of Strings, separate each item with a comma e.g. "Paris", "Napoleon"
+
+variable "lab_list" {
+  type = list(object({
+    title = string
+    members = list(string)
+  }))
+  default = [
+    {
+      "title" = "Spanish Monarchs"
+      "members" = [
+        "Isabella I",
+        "Charles I",
+        "Philip II",
+        "Felipe VI",
+      ]
+    },
+    {
+      "title" = "Regions of Spain"
+      "members" = [
+        "Andalucía",
+        "Cataluña",
+        "Galicia",
+        "País Vasco",
+      ]
+    },
+    {
+      "title" = "Spanish Artists"
+      "members" = [
+        "Pablo Picasso",
+        "Salvador Dalí", 
+        "Francisco Goya",
+        "Joan Miró",
+      ]
+    },
+    {
+      "title" = "Spanish Celebrities"
+      "members" = [
+        "Penélope Cruz",
+        "Rafael Nadal",
+        "Rosalía",
+        "Javier Bardem",
+      ]
+    }
+  ]
+}
+
+
+## Task information 
+variable tasks {
+  type = list(object({
+    tag      = string
+    question = string
+    option_a = string
+    option_b = string
+    option_c = string
+    option_d = string
+  }))
+  
+  default = [
+    {
+      tag      = "Add a Task and number"
+      question = "Add a question"
+      option_a = "Add an option"
+      option_b = "Add an option"
+      option_c = "Add an option"
+      option_d = "Add an option"
+    }
+  ]
+}
