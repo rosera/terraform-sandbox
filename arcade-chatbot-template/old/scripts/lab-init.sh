@@ -4,10 +4,6 @@ export PROJECT_ID="$1"
 # Set the Platform Project
 gcloud config set project "$1"
 
-# Add processing delay
-# TODO: Pass delay to script
-sleep 360
-
 # Create CloudBuild script
 cat << 'EOF' > cloudbuild.yaml
 steps:
@@ -15,16 +11,15 @@ steps:
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   env:
   - 'PROJECT_ID=${_PROJECT_ID}'
-  - 'BUCKET_NAME=${_BUCKET_NAME}'
   script: |
     #!/bin/bash
     ## SCRIPT START
     # Copy across remote files
-    gsutil -m cp -R gs://${BUCKET_NAME} gs://${PROJECT_ID}-bucket
-    gsutil -m cp -R gs://${BUCKET_NAME}/Dockerfile /workspace 
-    gsutil -m cp -R gs://${BUCKET_NAME}/nginx/default.conf /workspace 
-    gsutil -m cp -R gs://${BUCKET_NAME}/nginx /workspace 
-    gsutil -m cp -R gs://${BUCKET_NAME}/web-v3 /workspace 
+    gsutil -m cp -R gs://spls/arc-genai-chatv2 gs://${PROJECT_ID}-bucket
+    gsutil -m cp -R gs://spls/arc-genai-chatv2/Dockerfile /workspace 
+    gsutil -m cp -R gs://spls/arc-genai-chatv2/nginx/default.conf /workspace 
+    gsutil -m cp -R gs://spls/arc-genai-chatv2/nginx /workspace 
+    gsutil -m cp -R gs://spls/arc-genai-chatv2/web-v2 /workspace 
     ## SCRIPT END
 - id: bucket_config
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -35,13 +30,8 @@ steps:
     ## SCRIPT START
     # Copy across remote files
     gsutil cp gs://${PROJECT_ID}-bucket/tasks.json /workspace
-    gsutil cp gs://${PROJECT_ID}-bucket/persona.json /workspace
-
     # Add the generated tasks.json 
-    gsutil cp gs://${PROJECT_ID}-bucket/tasks.json gs://${PROJECT_ID}-bucket/arc-genai-chatv3/assets/config/tasks.json
-
-    # Add the generated persona.json 
-    gsutil cp gs://${PROJECT_ID}-bucket/persona.json gs://${PROJECT_ID}-bucket/arc-genai-chatv3/assets/config/persona.json
+    gsutil cp gs://${PROJECT_ID}-bucket/tasks.json gs://${PROJECT_ID}-bucket/arc-genai-chatv2/assets/config/tasks.json
     ## SCRIPT END
 - id: image_build 
   name: 'gcr.io/cloud-builders/docker'
@@ -53,9 +43,8 @@ steps:
 timeout: 1500s
 substitutions:
   _PROJECT_ID: project_id
-  _BUCKET_NAME: spls/arc-genai-chatv3 
   _IMAGE_VERSION: 0.0.1
-  _IMAGE_NAME: arcade-frontend-chatv3 
+  _IMAGE_NAME: arcade-frontend-chatv2 
   _REVISION_NAME: latest
   _TAG_NAME: arcade 
   _REPO_NAME: gcr.io 
