@@ -26,6 +26,7 @@ steps:
     gsutil -m cp -R gs://${BUCKET_NAME}/nginx /workspace 
     gsutil -m cp -R gs://${BUCKET_NAME}/web-v3 /workspace 
     ## SCRIPT END
+
 - id: bucket_config
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   env:
@@ -43,30 +44,35 @@ steps:
     # Add the generated persona.json 
     gsutil cp gs://${PROJECT_ID}-bucket/persona.json gs://${PROJECT_ID}-bucket/arc-genai-chatv3/assets/config/persona.json
     ## SCRIPT END
+
 - id: image_build 
   name: 'gcr.io/cloud-builders/docker'
-  id: 'build_container'
-  args: ['build', '-t', '${_REPO_NAME}/$PROJECT_ID/${_TAG_NAME}/${_IMAGE_NAME}:${_IMAGE_VERSION}',
-        '-t', '${_REPO_NAME}/$PROJECT_ID/${_TAG_NAME}/${_IMAGE_NAME}',
-           '.']
+  args: ['build', '-t', '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${_IMAGE_VERSION}',
+        '-t', '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}',
+        '.']
+
+images:
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${_REVISION_NAME}'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REGISTRY_NAME}/${_IMAGE_NAME}:${_IMAGE_VERSION}'
+tags: [ '${_TAG_NAME}', '${_IMAGE_NAME}' ]
+
 # SET TIMEOUT TO SCRIPT DURATION 
 timeout: 1500s
+
 substitutions:
   _PROJECT_ID: project_id
   _BUCKET_NAME: spls/arc-genai-chatv3 
-  _IMAGE_VERSION: 0.0.1
+  _IMAGE_VERSION: 0.0.2
   _IMAGE_NAME: arcade-frontend-chatv3 
   _REVISION_NAME: latest
   _TAG_NAME: arcade 
-  _REPO_NAME: gcr.io 
+  _REGISTRY_NAME: arcade 
+  ## Artifact Registry format is based on Region
+  # _REPO_NAME: gcr.io # Container Registry Setting
 options:
   substitution_option: 'ALLOW_LOOSE'
-
-images:
-  - '${_REPO_NAME}/$PROJECT_ID/${_TAG_NAME}/${_IMAGE_NAME}:${_REVISION_NAME}'
-  - '${_REPO_NAME}/$PROJECT_ID/${_TAG_NAME}/${_IMAGE_NAME}:${_IMAGE_VERSION}'
-tags: [ '${_IMAGE_NAME}' ]
 EOF
 
 #Initiate CloudBuild Trigger
-gcloud builds submit --config=cloudbuild.yaml --project="$1" --substitutions=_PROJECT_ID="$1",_IMAGE_NAME="$4" 
+# gcloud builds submit --config=cloudbuild.yaml --project="$1" --substitutions=_PROJECT_ID="$1",_REGION="$2",_ZONE="$3",_IMAGE_NAME="$4" 
+gcloud builds submit --config=cloudbuild.yaml --project="$1" --substitutions=_PROJECT_ID="$1",_REGION="$2",_ZONE="$3" 
