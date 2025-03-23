@@ -19,9 +19,6 @@ variable "lab_context" {
   default     = "Bienvenue à Français 101"
 }
 
-  default     = "Bienvenue à Français 101"
-}
-
 ## lab_list: Questions to be shown in the lab
 ## Type Constraint: Members == 4 | There are four options presented
 ## title: String representing the title of the List e.g. "History, Ge

@@ -10,13 +10,13 @@ variable "lab_persona" {
 variable "lab_topic" {
   type        = string
   description = "The topic area to be covered"
-  default     = "European Football leagues"
+  default     = "European Football"
 }
 
 variable "lab_context" {
   type        = string
   description = "Context of the lab"
-  default     = "European top tier soccer leagues"
+  default     = "European top tier soccer knowledge agent"
 }
 
 
@@ -44,7 +44,7 @@ variable "lab_list" {
     },
     {
       "title" = "Who won the Spanish Liga in 2023?"
-      "Barcelona"
+      "answer" = "Barcelona"
       "members" = [
         "Real Madrid",
         "Barcelona",

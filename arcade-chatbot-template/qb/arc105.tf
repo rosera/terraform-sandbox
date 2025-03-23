@@ -16,7 +16,7 @@ variable "lab_topic" {
 variable "lab_context" {
   type        = string
   description = "Context of the lab"
-  default     = "Worlds best hotel resorts"
+  default     = "Worlds best hotel resorts knowledge agent"
 }
 
 

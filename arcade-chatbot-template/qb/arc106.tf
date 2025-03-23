@@ -10,13 +10,13 @@ variable "lab_persona" {
 variable "lab_topic" {
   type        = string
   description = "The topic area to be covered"
-  default     = "Michelin Restaurants"
+  default     = "Michelin restaurants"
 }
 
 variable "lab_context" {
   type        = string
   description = "Context of the lab"
-  default     = "Restaurants with Michelin Stars"
+  default     = "Michelin Stars restaurant knowledge agent"
 }
 
 

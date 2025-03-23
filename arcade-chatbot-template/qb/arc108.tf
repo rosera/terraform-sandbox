@@ -16,7 +16,7 @@ variable "lab_topic" {
 variable "lab_context" {
   type        = string
   description = "Context of the lab"
-  default     = "Grammy award winners"
+  default     = "Grammy award winners knowledge agent"
 }
 
 
@@ -54,7 +54,7 @@ variable "lab_list" {
     },
     {
       "title" = "Which Song of the Year was sung by a former Destinys Child?"
-      answer = "Break My Soul by Beyonce"
+      "answer" = "Break My Soul by Beyonce"
       "members" = [
         "Just Like That by Bonnie Raitt",
         "Break My Soul by Beyonce",
@@ -64,7 +64,7 @@ variable "lab_list" {
     },
     {
       "title" = "Which Best New Artist sung about getting their drivers licence?"
-      answer = "Olivia Rodrigo"
+      "answer" = "Olivia Rodrigo"
       "members" = [
         "Olivia Rodrigo",
         "Megan Thee Stallion",

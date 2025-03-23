@@ -16,7 +16,7 @@ variable "lab_topic" {
 variable "lab_context" {
   type        = string
   description = "Context of the lab"
-  default     = "Academy Award Winners"
+  default     = "Academy Award Winners knowledge agent"
 }
 
 ## Academy Award Winners
@@ -63,6 +63,7 @@ variable "lab_list" {
     },
     {
       "title" = "Bong Joon Ho and Jin Won Han won Best Screenplay for which movie?"
+      "answer" = "Parasite"
       "members" = [
         "12 Angry Men",
         "Casablanca",

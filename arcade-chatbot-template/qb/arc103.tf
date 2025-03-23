@@ -10,13 +10,13 @@ variable "lab_persona" {
 variable "lab_topic" {
   type        = string
   description = "The topic area to be covered"
-  default     = "Cricket leagues"
+  default     = "National Cricket"
 }
 
 variable "lab_context" {
   type        = string
   description = "Context of the lab"
-  default     = "National Cricket leagues"
+  default     = "National Cricket leagues knowledge agent"
 }
 
 

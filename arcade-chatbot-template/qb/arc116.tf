@@ -16,7 +16,7 @@ variable "lab_topic" {
 variable "lab_context" {
   type        = string
   description = "Context of the lab"
-  default     = "Google Cloud exam revision"
+  default     = "Google Cloud exam revision knowledge agent"
 }
 
 ## lab_list: Questions to be shown in the lab
