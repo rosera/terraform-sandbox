@@ -44,8 +44,8 @@ variable "lab_list" {
       ]
     },
     {
-      "title" = "Big Bash League"
       "answer" = "Which Big Bash League team has the home ground The Gabba?"
+      "title" = "Brisbane Heat"
       "members" = [
         "Adelaide Strikers",
         "Brisbane Heat",
