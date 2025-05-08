@@ -55,36 +55,36 @@ variable "lab_list" {
         "Historical trends in traffic can be used for capacity planning.",
         "Low traffic volumes always indicate configuration issues.",
       ]
-#    },
-#    {
-#      "title" = "One of EHR\\’s healthcare customers is an internationally renowned research and hospital facility. Many of their patients are well-known public personalities. Sources both inside and outside have tried many times to obtain health information on these patients for malicious purposes. The hospital requires that patient information stored in Cloud Storage buckets not leave the geographic areas in which the buckets are hosted. You need to ensure that information stored in Cloud Storage buckets in the \"europe-west2\" region does not leave that area. What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
-#    },
-#    {
-#      "title" = "The EHR sales employees are a remote-based workforce that travels to different locations to do their jobs. Regardless of their location, the sales employees need to access web-based sales tools located in the EHR data center. EHR is retiring their current Virtual Private Network (VPN) infrastructure, and you need to move the web-based sales tools to a BeyondCorp access model. Each sales employee has a Google Workspace account and uses that account for single sign-on (SSO). What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
-#    },
-#    {
-#      "title" = "You are the data compliance officer for Mountkirk Games and must protect customers\\' personally identifiable information (PII). Mountkirk Games wants to make sure they can generate anonymized usage reports about their new game and delete PII data after a specific period of time. The solution should have minimal cost. You need to ensure compliance while meeting business and technical requirements. What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
+    },
+    {
+      "title" = "An organization has raised a support case with Google Cloud Customer Care. When is it appropriate for a case to be escalated?"
+      "answer" = "When flagging a break in the process or a communication issue"
+      "members" = [
+        "When a high-impact issue needs to be resolved as fast as possible",
+        "When the priority of the ticket has been set incorrectly",
+        "When flagging a break in the process or a communication issue",
+        "When a case has been resolved and needs to be reopened",
+      ]
+    },
+    {
+      "title" = "An organization wants to track and understand its expenses on Google Cloud and receive recommendations on cost optimizations. Which tool should the organization use?"
+      "answer" = "Cloud Billing reports"
+      "members" = [
+        "Cloud Billing reports",
+        "Resource quotas and thresholds",
+        "Committed use discounts",
+        "Invoices",
+      ]
+    },
+    {
+      "title" = "An organization wants to analyze data collected from a fleet of rental vehicles. Onboard sensors send location data every 30 seconds. They want to ingest this data. Which Google product or service should they use?"
+      "answer" = "Pub/Sub"
+      "members" = [
+        "Dataflow",
+        "Pub/Sub",
+        "Cloud SQL",
+        "Cloud Storage",
+      ]
     }
   ]
 }

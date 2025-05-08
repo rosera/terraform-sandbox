@@ -48,43 +48,43 @@ variable "lab_list" {
     },
     {
       "title" = "You migrated your on-premises MySQL instances to Cloud SQL on Google Cloud. The instances have been functioning as expected for the past six months. You need to optimize costs. What should you do?"
-      "answer" = "Apply the recommendations from the Cloud SQL over provisioned recommender."
+      "answer" = "Apply the recommendations from the Cloud SQL overprovisioned recommender."
       "members" = [
         "Review past logs in Cloud Logging to plan virtual machine (VM) resources.",
-        "Apply the recommendations from the Cloud SQL over provisioned recommender.",
+        "Apply the recommendations from the Cloud SQL overprovisioned recommender.",
         "Use Query Insights to identify query performance and plan VM resources accordingly.",
         "Review utilization on Cloud Monitoring dashboards to plan VM resources.",
       ]
-#    },
-#    {
-#      "title" = "One of EHR\\’s healthcare customers is an internationally renowned research and hospital facility. Many of their patients are well-known public personalities. Sources both inside and outside have tried many times to obtain health information on these patients for malicious purposes. The hospital requires that patient information stored in Cloud Storage buckets not leave the geographic areas in which the buckets are hosted. You need to ensure that information stored in Cloud Storage buckets in the \"europe-west2\" region does not leave that area. What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
-#    },
-#    {
-#      "title" = "The EHR sales employees are a remote-based workforce that travels to different locations to do their jobs. Regardless of their location, the sales employees need to access web-based sales tools located in the EHR data center. EHR is retiring their current Virtual Private Network (VPN) infrastructure, and you need to move the web-based sales tools to a BeyondCorp access model. Each sales employee has a Google Workspace account and uses that account for single sign-on (SSO). What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
-#    },
-#    {
-#      "title" = "You are the data compliance officer for Mountkirk Games and must protect customers\\' personally identifiable information (PII). Mountkirk Games wants to make sure they can generate anonymized usage reports about their new game and delete PII data after a specific period of time. The solution should have minimal cost. You need to ensure compliance while meeting business and technical requirements. What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
+    },
+    {
+      "title" = "You are part of the database maintenance team at your company. You are running a MySQL instance on a Compute Engine virtual machine (VM). The applications team raised a high-priority ticket regarding slow responses to queries running on the database. You need to quickly identify the slow queries. What should you do?"
+      "answer" = "Set the database-flags options for slow_query_log. Then look for mysql-slow.log in the Logs Explorer."
+      "members" = [
+        "Add application logs before and after each of the queries.",
+        "Configure your application to export spans to Cloud Trace.",
+        "Migrate the MySQL instance to Cloud SQL, and then look at Query Insights.",
+        "Set the database-flags options for slow_query_log. Then look for mysql-slow.log in the Logs Explorer.",
+      ]
+    },
+    {
+      "title" = "You are creating applications for your company in the retail industry. Orders are stored in Cloud Spanner, and your flagship store uses storeId “12345.” Management wants to regularly run a query on this store for different customers. You want to parameterize this query for performance. What should you do?"
+      "answer" = "select productIds from orders where customerId=@customerId and storeId='12345'"
+      "members" = [
+        "select productIds from orders where customerId=@customerId and storeId='12345'",
+        "select productIds from orders where customerId=@customerId and storeId=@storeId",
+        "select productIds from orders where customerId like @customerId and storeId=@storeId",
+        "select productIds from orders where customerId like @customerId and storeId='12345'",
+      ]
+    },
+    {
+      "title" = "Analysts in your company have raised concerns about performance and failed queries from the most recent Thursday to Monday. You look at the logs on Tuesday and discover nearly 50 "deadlock detected" errors. In the future, you want to take a more proactive approach to discovering database issues. What should you do?"
+      "answer" = "Create a Cloud Monitoring metric with \"deadlock detected\" as the text payload, and set notifications based on it."
+      "members" = [
+        "Export the logs daily to BigQuery, and run a search for \"deadlock detected\" on the data.",
+        "Create a Cloud Monitoring metric with \"deadlock detected\" as the text payload, and set notifications based on it.",
+        "Create a Cloud Monitoring dashboard, and watch for any issues related to congestion that could indicate a deadlock.",
+        "Write a Cloud Function to poll the database logs for \"deadlock detected\" errors, and schedule the Cloud Function to run every hour on Cloud Scheduler.",
+      ]
     }
   ]
 }

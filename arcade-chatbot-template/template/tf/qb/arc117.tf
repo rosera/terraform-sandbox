@@ -55,36 +55,36 @@ variable "lab_list" {
         "Delete the prepopulated rule that allows SSH traffic from 0.0.0.0/0. Create a network tag that allows access to TCP 22, and apply the tag to each VM that will access the application.",
         "Delete the prepopulated rule that allows SSH traffic from 0.0.0.0/0. Create a network tag that allows access to TCP 3389, and apply the newly created tag to each VM that will access the application.",
       ]
-#    },
-#    {
-#      "title" = "One of EHR\\’s healthcare customers is an internationally renowned research and hospital facility. Many of their patients are well-known public personalities. Sources both inside and outside have tried many times to obtain health information on these patients for malicious purposes. The hospital requires that patient information stored in Cloud Storage buckets not leave the geographic areas in which the buckets are hosted. You need to ensure that information stored in Cloud Storage buckets in the \"europe-west2\" region does not leave that area. What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
-#    },
-#    {
-#      "title" = "The EHR sales employees are a remote-based workforce that travels to different locations to do their jobs. Regardless of their location, the sales employees need to access web-based sales tools located in the EHR data center. EHR is retiring their current Virtual Private Network (VPN) infrastructure, and you need to move the web-based sales tools to a BeyondCorp access model. Each sales employee has a Google Workspace account and uses that account for single sign-on (SSO). What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
-#    },
-#    {
-#      "title" = "You are the data compliance officer for Mountkirk Games and must protect customers\\' personally identifiable information (PII). Mountkirk Games wants to make sure they can generate anonymized usage reports about their new game and delete PII data after a specific period of time. The solution should have minimal cost. You need to ensure compliance while meeting business and technical requirements. What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
+    },
+    {
+      "title" = "You work at an enterprise company that wants to enforce central management of all Google Cloud firewall rules. Currently, each internal business unit uses folders to manage their Google Cloud projects and network. You want the ability to deny incoming requests to the business unit's Compute Engine VMs. What should you do?"
+      "answer" = "Create a hierarchical firewall policy at the organization level, and deny all ingress traffic to the required business unit."
+      "members" = [
+        "Configure VPC firewall rules to deny and allow traffic.",
+        "Create a Shared VPC network, and configure the firewall in the host project.",
+        "Create a hierarchical firewall policy at the organization level, and allow all egress traffic to the required business unit.",
+        "Create a hierarchical firewall policy at the organization level, and deny all ingress traffic to the required business unit.",
+      ]
+    },
+    {
+      "title" = "Your customer has SaaS applications on Google Cloud. You want your services to be available to the customers' application in the most secure and cost-effective way. What should you do?"
+      "answer" = "Configure VPC Network Peering to connect directly into their Google Cloud VPC network."
+      "members" = [
+        "Configure a Cloud VPN gateway that provides a connection into their Google Cloud VPC network.",
+        "Create a Cloud Identity account to give you access into their Google Cloud VPC network.",
+        "Configure VPC Network Peering to connect directly into their Google Cloud VPC network.",
+        "Create a custom HTTP application that provides a connection to their Google Cloud VPC network.",
+      ]
+    },
+    {
+      "title" = "You need to create a Google Kubernetes Engine (GKE) cluster that prevents inbound external access. You want the cluster to allow certain nodes to have outbound internet access. What should you do?"
+      "answer" = "Create a private GKE cluster, and use Cloud NAT for external access."
+      "members" = [
+        "Create a VPC-native cluster, and enable private nodes.",
+        "Create a private GKE cluster, and enable private nodes.",
+        "Create a private GKE cluster, and use Cloud NAT for external access.",
+        "Create a GKE cluster within a Shared VPC network, and create a firewall rule that allows external access for the node.",
+      ]
     }
   ]
 }

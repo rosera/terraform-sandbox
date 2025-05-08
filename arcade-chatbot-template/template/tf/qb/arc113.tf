@@ -28,7 +28,7 @@ variable "lab_context" {
 variable "lab_list" {
   type = list(object({
     title = string
-    answers = string
+    answer = string
     members = list(string)
   }))
 

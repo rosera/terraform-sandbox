@@ -37,7 +37,7 @@ variable "lab_list" {
 
   default = [
     {
-      "title" = "Your organization plans to migrate its financial transaction monitoring application to Google Cloud.
+      "title" = "Your organization plans to migrate its financial transaction monitoring application to Google Cloud. Auditors need to view the data and run reports in BigQuery, but they are not allowed to perform transactions in the application. You are leading the migration and want the simplest solution that will require the least amount of maintenance. What should you do?"
       "answer" = "Create a group for auditors, and assign roles/bigquery.dataViewer to them."
       "members" = [
         "Assign roles/bigquery.dataViewer to the individual auditors.",
@@ -47,44 +47,44 @@ variable "lab_list" {
       ]
     },
     {
-      "title" = "You are managing your company’s first Google Cloud project. Project leads, developers, and internal
-      "answer" = "Create groups. Assign an IAM Predefined role to each group as required, including those who should
+      "title" = "You are managing your company’s first Google Cloud project. Project leads, developers, and internal testers will participate in the project, which includes sensitive information. You need to ensure that only specific members of the development team have access to sensitive information. You want to assign the appropriate Identity and Access Management (IAM) roles that also require the least amount of maintenance. What should you do?"
+      "answer" = "Create groups. Assign an IAM Predefined role to each group as required, including those who should have access to sensitive data. Assign users to groups."
       "members" = [
         "Assign a basic role to each user.",
         "Create groups. Assign a basic role to each group, and then assign users to groups.",
-        "Create groups. Assign a Custom role to each group, including those who should have access to sensitive data.
-        "Create groups. Assign an IAM Predefined role to each group as required, including those who should have acce
+        "Create groups. Assign a Custom role to each group, including those who should have access to sensitive data. Assign users to groups.",
+        "Create groups. Assign an IAM Predefined role to each group as required, including those who should have access to sensitive data. Assign users to groups.",
       ]
-#    },
-#    {
-#      "title" = "One of EHR\\’s healthcare customers is an internationally renowned research and hospital facility.
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application o
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Comp
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compu
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expos
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balan
-#      ]
-#    },
-#    {
-#      "title" = "The EHR sales employees are a remote-based workforce that travels to different locations to do thei
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application o
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Comp
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compu
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expos
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balan
-#      ]
-#    },
-#    {
-#      "title" = "You are the data compliance officer for Mountkirk Games and must protect customers\\' personally id
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application o
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
+    },
+    {
+      "title" = "You are responsible for monitoring all changes in your Cloud Storage and Firestore instances. For each change, you need to invoke an action that will verify the compliance of the change in near real time. You want to accomplish this with minimal setup. What should you do?"
+      "answer" = "Use Cloud Function events, and call the security script from the Cloud Function triggers."
+      "members" = [
+        "Use the trigger mechanism in each datastore to invoke the security script.",
+        "Use Cloud Function events, and call the security script from the Cloud Function triggers.",
+        "Use a Python script to get logs of the datastores, analyze them, and invoke the security script.",
+        "Redirect your data-changing queries to an App Engine application, and call the security script from the application.",
+      ]
+    },
+    {
+      "title" = "Your application needs to process a significant rate of transactions. The rate of transactions exceeds the processing capabilities of a single virtual machine (VM). You want to spread transactions across multiple servers in real time and in the most cost-effective manner. What should you do?"
+      "answer" = "Send transactions to Pub/Sub. Process them in VMs in a managed instance group."
+      "members" = [
+        "Send transactions to BigQuery. On the VMs, poll for transactions that do not have the ‘processed’ key, and mark them ‘processed’ when done.",
+        "Set up Cloud SQL with a memory cache for speed. On your multiple servers, poll for transactions that do not have the ‘processed’ key, and mark them ‘processed’ when done.",
+        "Send transactions to Pub/Sub. Process them in VMs in a managed instance group.",
+        "Record transactions in Cloud Bigtable, and poll for new transactions from the VMs.",
+      ]
+    },
+    {
+      "title" = "Your team needs to directly connect your on-premises resources to several virtual machines inside a virtual private cloud (VPC). You want to provide your team with fast and secure access to the VMs with minimal maintenance and cost. What should you do?"
+      "answer" = "Use Cloud VPN to create a bridge between the VPC and your network."
+      "members" = [
+        "Set up Cloud Interconnect.",
+        "Use Cloud VPN to create a bridge between the VPC and your network.",
+        "Assign a public IP address to each VM, and assign a strong password to each one.",
+        "Start a Compute Engine VM, install a software router, and create a direct tunnel to each VM.",
+      ]
     }
   ]
 }

@@ -47,43 +47,43 @@ variable "lab_list" {
     },
     {
       "title" = "A customer wants to use Cloud Identity as their primary IdP. The customer wants to use other non-Google Cloud SaaS products for CRM, messaging, and customer ticketing management. The customer also wants to improve employee experience with Single Sign-On (SSO) capabilities to securely access Google Cloud and non-Google Cloud applications. Only authorized individuals should be able to access these third-party applications. What action should the customer take to meet these requirements?"
-      "answer" = "Copy user personas from Cloud Identity to all third-party applications for the domain."
+      "answer" = "Configure third-party applications to federate authentication and authorization to the Google Cloud IdP."
       "members" = [
         "Remove the employee from Cloud Identity, set the correct license for the individuals, and resync them to Cloud Identity for the changes to take effect.",
         "Configure third-party applications to federate authentication and authorization to the Google Cloud IdP.",
         "Remove the individuals from the third-party applications, add the license to Cloud Identity, and resync the individuals back to the third-party applications.",
         "Copy user personas from Cloud Identity to all third-party applications for the domain.",
       ]
-#    },
-#    {
-#      "title" = "One of EHR\\’s healthcare customers is an internationally renowned research and hospital facility. Many of their patients are well-known public personalities. Sources both inside and outside have tried many times to obtain health information on these patients for malicious purposes. The hospital requires that patient information stored in Cloud Storage buckets not leave the geographic areas in which the buckets are hosted. You need to ensure that information stored in Cloud Storage buckets in the \"europe-west2\" region does not leave that area. What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
-#    },
-#    {
-#      "title" = "The EHR sales employees are a remote-based workforce that travels to different locations to do their jobs. Regardless of their location, the sales employees need to access web-based sales tools located in the EHR data center. EHR is retiring their current Virtual Private Network (VPN) infrastructure, and you need to move the web-based sales tools to a BeyondCorp access model. Each sales employee has a Google Workspace account and uses that account for single sign-on (SSO). What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
-#    },
-#    {
-#      "title" = "You are the data compliance officer for Mountkirk Games and must protect customers\\' personally identifiable information (PII). Mountkirk Games wants to make sure they can generate anonymized usage reports about their new game and delete PII data after a specific period of time. The solution should have minimal cost. You need to ensure compliance while meeting business and technical requirements. What should you do?"
-#      "answer" = "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines."
-#      "members" = [
-#        "Deploy an external HTTP(S) load balancer, configure VPC firewall rules, and move the applications onto Compute Engine virtual machines.",
-#        "Deploy an external HTTP(S) load balancer, configure Google Cloud Armor, and move the application onto Compute Engine virtual machines.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create a GKE service to expose the pods within the cluster, and set up a GKE network policy.",
-#        "Containerize the application and move it into Google Kubernetes Engine (GKE). Create an internal load balancer to expose the pods outside the cluster, and configure Identity-Aware Proxy (IAP) for access.",
-#      ]
+    },
+    {
+      "title" = "A Cloud Development team needs to use service accounts extensively in their local development. You need to provide the team with the keys for these service accounts. You want to follow Google-recommended practices. What should you do?"
+      "answer" = "Implement a daily key rotation process, and provide developers with a Cloud Storage bucket from which they can download the new key every day."
+      "members" = [
+        "Implement a daily key rotation process that generates a new key and commits it to the source code repository every day.",
+        "Implement a daily key rotation process, and provide developers with a Cloud Storage bucket from which they can download the new key every day.",
+        "Create a Google Group with all developers. Assign the group the IAM role of Service Account User, and have developers generate and download their own keys.",
+        "Create a Google Group with all developers. Assign the group the IAM role of Service Account Admin, and have developers generate and download their own keys.",
+      ]
+    },
+    {
+      "title" = "A customer needs to rely on their existing user directory with the requirements of native authentication when developing solutions in Google Cloud. They want to leverage their existing tooling and functionality to gather insight on user activity from a familiar interface. Which action should you take to meet the customer's requirements?"
+      "answer" = "Configure Cloud Identity as a SAML 2.0 Service Provider, using the customer's User Directory as the Identity Provider."
+      "members" = [
+        "Provision users into Cloud Identity using Just-in-Time SAML 2.0 user provisioning with the customer User Directory as source.",
+        "Configure Cloud Identity as a SAML 2.0 Service Provider, using the customer's User Directory as the Identity Provider.",
+        "Configure and enforce 2-Step Verification in Cloud Identity for all Super Admins.",
+        "Configure a third-party IdP (Octa or Ping Federate) to manage authentication.",
+      ]
+    },
+    {
+      "title" = "A customer wants to grant access to their application running on Compute Engine to write only to a specific Cloud Storage bucket. How should you grant access?"
+      "answer" = "Create a service account for the application, and grant the Storage Object Creator role at the bucket level."
+      "members" = [
+        "Create a service account for the application, and grant the Storage Object Creator role at the project level.",
+        "Create a service account for the application, and grant the Storage Object Creator role at the bucket level.",
+        "Create a user account, authenticate with the application, and grant the Storage Object Admin role at the bucket level.",
+        "Create a user account, authenticate with the application, and grant the Storage Object Admin role at the project level.",
+      ]
     }
   ]
 }
