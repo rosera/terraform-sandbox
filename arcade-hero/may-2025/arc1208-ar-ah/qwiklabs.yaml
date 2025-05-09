@@ -1,0 +1,44 @@
+entity_type: Lab
+schema_version: 2
+default_locale: en
+title: "Arcade Hero: Building Blocks Artifact Registry II"
+description: "Arcade Hero: Artifact Registry"
+duration: 30
+max_duration: 30
+credits: 1 
+level: introductory
+tags:
+  - arc1208-ah
+  - arcade-hero
+instruction:
+  type: html
+  uri: "instructions/en.md"
+environment:
+  resources:
+    - type: gcp_user
+      id: user_0
+      permissions:
+        - project: project_0
+          roles:
+            - roles/run.admin
+            - roles/owner
+    - type: gcp_project
+      id: project_0
+      variant: gcpd
+      ssh_key_user: user_0
+      allowed_locations:
+      - us-central1
+      - us-east1
+      - us-west1
+      startup_script:
+        type: qwiklabs
+        path: tf
+  student_visible_outputs:
+    - label: Open Google Cloud console
+      reference: project_0.console_url
+    - label: Username
+      reference: user_0.username
+    - label: Password
+      reference: user_0.password
+    - label: "Kanban Application"
+      reference: project_0.startup_script.service_url

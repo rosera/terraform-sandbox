@@ -1,0 +1,20 @@
+name: Arcade Hero Lab 
+description: "Lab Assessment"
+passing_percentage: 100
+steps:
+- title: Fix this ticket 
+  locale_id: step_1
+  maximum_score: 50
+  student_messages:
+    success: 'Assessment Completed'
+  services:
+  - project_0.LoggingV2
+  method_name: step_one_check
+- title: Fix this ticket 
+  locale_id: step_2
+  maximum_score: 50
+  student_messages:
+    success: 'Assessment Completed'
+  services:
+  - project_0.LoggingV2
+  method_name: step_two_check
