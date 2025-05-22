@@ -62,7 +62,7 @@ variable "lab_list" {
         "Ask the developer for their laptop's IP address, and add it to the authorized networks list.",
         "Remove the external IP address, and replace it with an internal IP address. Add only the IP address for the remote developer's laptop to the authorized list.",
         "Give instance access permissions in Identity and Access Management (IAM), and have the developer run Cloud SQL Auth proxy to connect to a MySQL instance.",
-        "Give instance access permissions in Identity and Access Management (IAM), change the access to "private service access" for security, and allow the developer to access Cloud SQL from their laptop.",
+        "Give instance access permissions in Identity and Access Management (IAM), change the access to \"private service access\" for security, and allow the developer to access Cloud SQL from their laptop.",
       ]
     },
     {

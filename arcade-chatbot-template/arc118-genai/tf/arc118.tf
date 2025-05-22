@@ -77,7 +77,7 @@ variable "lab_list" {
       ]
     },
     {
-      "title" = "Analysts in your company have raised concerns about performance and failed queries from the most recent Thursday to Monday. You look at the logs on Tuesday and discover nearly 50 "deadlock detected" errors. In the future, you want to take a more proactive approach to discovering database issues. What should you do?"
+      "title" = "Analysts in your company have raised concerns about performance and failed queries from the most recent Thursday to Monday. You look at the logs on Tuesday and discover nearly 50 \"deadlock detected\" errors. In the future, you want to take a more proactive approach to discovering database issues. What should you do?"
       "answer" = "Create a Cloud Monitoring metric with \"deadlock detected\" as the text payload, and set notifications based on it."
       "members" = [
         "Export the logs daily to BigQuery, and run a search for \"deadlock detected\" on the data.",
