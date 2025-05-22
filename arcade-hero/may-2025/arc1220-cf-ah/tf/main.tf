@@ -37,6 +37,27 @@ locals {
 
 # Module: Google Cloud Storage
 #-----------------------------------------------------------------------------
+module "la_gcs_bucket" {
+  ## NOTE: When changing the source parameter, `terraform init` is required
+
+  ## Local Modules - working
+  ## Module subdirectory needs to be defined within the TF directory
+  #source = "./basics/gcs_bucket/stable"
+
+  ## REMOTE: GitHub (Public) access - working 
+  source = "github.com/CloudVLab/terraform-lab-foundation//basics/gcs_bucket/stable"
+
+  # Pass values to the module
+  gcp_project_id = var.gcp_project_id
+  gcp_region     = var.gcp_region
+  gcp_zone       = var.gcp_zone
+
+  # Customise the GCS instance
+  gcs_bucket_extension = "bucket"
+  gcs_storage_class    = "STANDARD"
+  gcs_append_project   = true
+}
+
 module "la_gcs" {
   ## NOTE: When changing the source parameter, `terraform init` is required
 
@@ -91,56 +112,25 @@ resource "google_storage_bucket_object" "task_object" {
 #-----------------------------------------------------------------------------
 
 # Build Frontend Application 
-
-# Data: google_project 
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project
-
-data "google_project" "project" {
-  project_id = var.gcp_project_id
-}
-
-# Module: Enable Google APIs
-#-----------------------------------------------------------------------------
-module "la_api_batch" {
-  source = "github.com/CloudVLab/terraform-lab-foundation//basics/api_service/dev"
-
-  # Pass values to the module
-  gcp_project_id = var.gcp_project_id
-  gcp_region     = var.gcp_region
-  gcp_zone       = var.gcp_zone
-
-  # Customise the GCE instance
-  api_services = ["run.googleapis.com"]
-}
-
-## # Module: Bind Service Account to Role 
+## # Module: Enable Google APIs
 ## #-----------------------------------------------------------------------------
-## locals {
-##   #  PROJECT_NUMBER@cloudbuild.gserviceaccount.com
-##   service_account = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
-## }
+## module "la_api_batch" {
+##   source = "github.com/CloudVLab/terraform-lab-foundation//basics/api_service/dev"
 ## 
-## # Module: Bind Service Account to Role 
-## #-----------------------------------------------------------------------------
-## module "la_sa_role" {
-##   source = "github.com/CloudVLab/terraform-lab-foundation//basics/iam_sa_role/stable"
-## 
-##   ## Exchange values between Qwiklabs and Module
+##   # Pass values to the module
 ##   gcp_project_id = var.gcp_project_id
 ##   gcp_region     = var.gcp_region
 ##   gcp_zone       = var.gcp_zone
 ## 
-##   ## Custom Properties
-##   # Pass the service account as principle member - non authorative binding
-##   iam_sa_name  = local.service_account
-##   iam_sa_roles = ["roles/storage.admin"]
+##   # Customise the GCE instance
+##   api_services = ["run.googleapis.com"]
 ## }
 
 # Module: GCloud Task Runner
 #-----------------------------------------------------------------------------
 module "cloudbuild_script" {
   source                   = "terraform-google-modules/gcloud/google"
-  version                  = "~> 3.0.1"
+  # version                  = "~> 3.0.1"
   platform                 = "linux"
   create_cmd_entrypoint    = "chmod +x ${path.module}/scripts/lab-init.sh;${path.module}/scripts/lab-init.sh"
   create_cmd_body          = "${var.gcp_project_id} ${var.gcp_region} ${var.gcp_zone}"

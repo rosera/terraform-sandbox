@@ -32,7 +32,6 @@ steps:
     ## SCRIPT END
 - id: image_build 
   name: 'gcr.io/cloud-builders/docker'
-  id: 'build_container'
   args: ['build', '-t', '${_REPO_NAME}/$PROJECT_ID/${_TAG_NAME}/${_IMAGE_NAME}:${_IMAGE_VERSION}',
         '-t', '${_REPO_NAME}/$PROJECT_ID/${_TAG_NAME}/${_IMAGE_NAME}',
            '.']

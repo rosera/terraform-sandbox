@@ -43,7 +43,7 @@ variable "gcp_cf_trigger" {
 variable "gcp_cf2_trigger" {
   type        = string
   description = "Runtime language"
-  default     = "Pub/Sub"
+  default     = "Pub/Sub trigger"
 }
 
 variable "gcp_cf_entrypoint" {
@@ -57,6 +57,23 @@ variable "gcp_cf_instances" {
   description = "Number of Cloud Run function instances"
   default     = "5"
 }
+
+variable "gcp_cf_service_account" {
+  type        = string
+  description = "Cloud Run functions service account"
+  # default     = "Compute Engine default service account"
+  # default     = "Cloud Run functions demo account"
+  default     = "Arcade Hero SA"
+}
+
+variable "gcp_cf2_service_account" {
+  type        = string
+  description = "Cloud Run functions service account"
+  default     = "Compute Engine default service account"
+  # default     = "Cloud Run functions demo account"
+  # default     = "Arcade Hero SA"
+}
+
 
 # Variables: Cloud Run functions 
 #-----------------------------------------------------------------------------
@@ -126,6 +143,7 @@ module "cloud_functions_http" {
   instructions = [  
     { step = "Navigate to the Cloud Run functions Page", command = "" },
     { step = "Click on the 'Write a function' button.", command = "" },
+    #    { step = "Click on the 'Create Function' button.", command = "" },
     { step = "Select the \"Function\" option 'Use an inline editor to create a function' section.", command = "" },
     { step = "Enter the service name as \"${var.gcp_cf_name}\".", command = "${var.gcp_cf_name}"  },  
 
@@ -134,7 +152,11 @@ module "cloud_functions_http" {
     { step = "Choose '${var.gcp_cf_runtime}' as the runtime language.", command = "${var.gcp_cf_runtime}" },
     { step = "Under the \"Authentication\" heading, select \"Allow unauthenticated invocations\".", command = "" },
     #    { step = "Click the \"Runtime, build, connections and security settings\".", command = "" },
-    { step = "Use the \"Container\" section to set the maximum number of instances to \"${var.gcp_cf_instances}\".", command = "${var.gcp_cf_instances}"  }, 
+    { step = "Access the \"Container (s), Volumes, Networking, Security\" section.", command = ""  }, 
+    { step = "Use the \"Container\" Tab section to set the maximum number of instances to \"${var.gcp_cf_instances}\".", command = "${var.gcp_cf_instances}"  }, 
+
+    { step = "Use the \"Security\" Tab section to set the service acccount.", command = ""  }, 
+    { step = "Set the service account to \"${var.gcp_cf_service_account}\".", command = "${var.gcp_cf_service_account}"  }, 
     #    { step = "Set the autoscaling maximum number of instances as \"${var.gcp_cf_instances}\".", command = "${var.gcp_cf_instances}" },
     #    { step = "Leave the entry point as the default for ${var.gcp_cf_runtime} runtime language.", command = ""  }, 
     #    { step = "Select an appropriate trigger for your function (e.g., HTTP, Cloud Pub/Sub, Cloud Storage, etc.).", command = "" },
@@ -154,7 +176,10 @@ module "cloud_functions_http" {
     { step = "Set the runtime language as \"${var.gcp_cf_runtime}\".", command = "${var.gcp_cf_runtime}"  }, 
     #    { step = "Enter the trigger as \"${var.gcp_cf_trigger}\".", command = "${var.gcp_cf_trigger}"  },  
     { step = "Set the \"Authentication\" to \"Allow unauthenticated invocation\".", command = ""  }, 
-    { step = "Use the \"Container\" section to set the maximum number of instances to \"${var.gcp_cf_instances}\".", command = "${var.gcp_cf_instances}"  }, 
+    { step = "Access the \"Container (s), Volumes, Networking, Security\" section.", command = ""  }, 
+    { step = "Use the \"Container\" Tab section to set the maximum number of instances to \"${var.gcp_cf_instances}\".", command = "${var.gcp_cf_instances}"  }, 
+    { step = "Use the \"Security\" Tab section to set the service acccount.", command = ""  }, 
+    { step = "Set the service account to \"${var.gcp_cf_service_account}\".", command = "${var.gcp_cf_service_account}"  }, 
     #    { step = "Leave the entry point as the default for ${var.gcp_cf_runtime} runtime language.", command = ""  }, 
     { step = "Click the 'Create' button to create your Cloud Run function.", command = "" },
     # ... more challenges 
@@ -179,36 +204,46 @@ module "cloud_functions_pubsub" {
 
   instructions = [
     { step = "Navigate to the Cloud Run functions Page", command = "" },
-    { step = "Click on the 'Create Function' button.", command = "" },
-    { step = "Select the \"${var.gcp_cf_generation}\" option under the 'Environment' section.", command = "${var.gcp_cf_generation}" },
-    { step = "Enter the name as \"${var.gcp_cf2_name}\".", command = "${var.gcp_cf2_name}"  },
-    { step = "Select \"${var.gcp_region}\" as the region.", command = "${var.gcp_region}"  },
-    { step = "Under the Authentication heading, select \"Allow unauthenticated invocations\".", command = "" },
-    { step = "Click the \"Runtime, build, connections and security settings\".", command = "" },
-    { step = "Set the autoscaling maximum number of instances as \"${var.gcp_cf_instances}\".", command = "${var.gcp_cf_instances}" },
-    { step = "Set the runtime service account as \"Cloud Run functions demo account\" as the region.", command = ""  },
-    { step = "Choose '${var.gcp_cf_runtime}' as the runtime language.", command = "${var.gcp_cf_runtime}" },
-    { step = "Leave the entry point as the default for ${var.gcp_cf_runtime} runtime language.", command = ""  },
-    { step = "Select an appropriate trigger for your function (e.g., HTTP, Cloud Pub/Sub, Cloud Storage, etc.).", command = "" },
-    { step = "Enter the trigger as \"${var.gcp_cf2_trigger}\".", command = "${var.gcp_cf2_trigger}"  },
-    { step = "Enter the topic as \"${var.gcp_cf2_name}\".", command = "${var.gcp_cf2_name}"  },
-    { step = "Click the 'Deploy' button to create your Gen 2 Cloud Run functions.", command = "" },
+    { step = "Click on the 'Write a function' button.", command = "" },
+    { step = "Select the \"Function\" option 'Use an inline editor to create a function' section.", command = "" },
+    { step = "Enter the service name as \"${var.gcp_cf2_name}\".", command = "${var.gcp_cf2_name}"  },  
+    { step = "Select \"${var.gcp_region}\" as the region.", command = "${var.gcp_region}"  }, 
+    { step = "Set the runtime language as \"${var.gcp_cf_runtime}\".", command = "${var.gcp_cf_runtime}"  }, 
+    { step = "Enter the trigger as \"${var.gcp_cf2_trigger}\".", command = "${var.gcp_cf2_trigger}"  },  
+    { step = "If an API notification is shown, follow the onscreen instruction to enable the required API is enabled.", command = ""  }, 
+    { step = "Use the Trigger defaults as set by the system.", command = ""  },  
+    { step = "Create the PubSub Topic name as \"arcade-hero\" in region \"${var.gcp_region}\".", command = "arcade-hero"  },  
+    { step = "Set the service account to \"${var.gcp_cf2_service_account}\".", command = "${var.gcp_cf2_service_account}"  }, 
+    { step = "Click the 'Save trigger' button to create the event.", command = "" },
+    { step = "Set the \"Authentication\" to \"Require authentication\".", command = ""  }, 
+    # { step = "Set the \"Authentication\" to \"Allow unauthenticated invocation\".", command = ""  }, 
+    { step = "Access the \"Container (s), Volumes, Networking, Security\" section.", command = ""  }, 
+    { step = "Use the \"Container\" section to set the maximum number of instances to \"${var.gcp_cf_instances}\".", command = "${var.gcp_cf_instances}"  }, 
+    { step = "Use the \"Security\" section to set the service account to \"${var.gcp_cf2_service_account}\".", command = "${var.gcp_cf2_service_account}"  }, 
     { step = "The task is now complete.", command = ""  }
     # ... more instructions
   ]
 
   challenges = [
-    # { step = "Enable the Cloud Run functions API.", command = "" },
-    { step = "Open the Cloud Run functions in the Google Cloud console.", command = "" },
-    { step = "Select the \"${var.gcp_cf_generation}\" option under the 'Environment' section.", command = "${var.gcp_cf_generation}" },
-    { step = "Enter the name as \"${var.gcp_cf2_name}\".", command = "${var.gcp_cf2_name}"  },
-    { step = "Select \"${var.gcp_region}\" as the region.", command = "${var.gcp_region}"  },
-    { step = "Enter the trigger as \"${var.gcp_cf2_trigger}\".", command = "${var.gcp_cf2_trigger}"  },
-    { step = "Enter the topic as \"${var.gcp_cf2_name}\".", command = "${var.gcp_cf2_name}"  },
-    { step = "Set the number of instances to \"${var.gcp_cf_instances}\" as the region.", command = "${var.gcp_cf_instances}"  },
-    { step = "Set the runtime service account as \"Cloud Run functions demo account\" as the region.", command = ""  },
-    { step = "Set the runtime language as \"${var.gcp_cf_runtime}\".", command = "${var.gcp_cf_runtime}"  },
-    { step = "Leave the entry point as the default for ${var.gcp_cf_runtime} runtime language.", command = ""  },
+    { step = "Navigate to the Cloud Run functions Page", command = "" },
+    { step = "Click on the 'Write a function' button.", command = "" },
+    { step = "Select the \"Function\" option 'Use an inline editor to create a function' section.", command = "" },
+    { step = "Enter the service name as \"${var.gcp_cf2_name}\".", command = "${var.gcp_cf2_name}"  },  
+    { step = "Select \"${var.gcp_region}\" as the region.", command = "${var.gcp_region}"  }, 
+    { step = "Set the runtime language as \"${var.gcp_cf_runtime}\".", command = "${var.gcp_cf_runtime}"  }, 
+    { step = "Enter the trigger as \"${var.gcp_cf2_trigger}\".", command = "${var.gcp_cf2_trigger}"  },  
+    { step = "If an API notification is shown, follow the onscreen instruction to enable the required API is enabled.", command = ""  }, 
+    { step = "Use the Trigger defaults as set by the system.", command = ""  },  
+    { step = "Create the PubSub Topic name as \"arcade-hero\" in region \"${var.gcp_region}\".", command = "arcade-hero"  },  
+    { step = "Set the service account to \"${var.gcp_cf2_service_account}\".", command = "${var.gcp_cf2_service_account}"  }, 
+    { step = "Click the 'Save trigger' button to create the event.", command = "" },
+    { step = "Set the \"Authentication\" to \"Require authentication\".", command = ""  }, 
+    # { step = "Set the \"Authentication\" to \"Allow unauthenticated invocation\".", command = ""  }, 
+    { step = "Access the \"Container (s), Volumes, Networking, Security\" section.", command = ""  }, 
+    { step = "Use the \"Container\" section to set the maximum number of instances to \"${var.gcp_cf_instances}\".", command = "${var.gcp_cf_instances}"  }, 
+    { step = "Use the \"Security\" section to set the service account to \"${var.gcp_cf2_service_account}\".", command = "${var.gcp_cf2_service_account}"  }, 
+    { step = "The task is now complete.", command = ""  }
+
     # ... more challenges
   ]
 
