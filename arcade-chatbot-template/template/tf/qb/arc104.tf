@@ -19,7 +19,7 @@ variable "lab_context" {
   default     = "National Basketball knowledge agent"
 }
 
-sketball National Leagues
+## Basketball National Leagues
 ## Type constraint:
 ## title: String representing the title of the List e.g. "English Premier League"
 ## members: List of Strings, separate each item with a comma e.g. "Arsenal", "Newcastle"

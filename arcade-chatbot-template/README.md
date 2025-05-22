@@ -1,4 +1,4 @@
-# Lab Templates 
+# Lab Terraform Templates 
 
 Ensure the folder structure matches the lab bundle format to avoid complexity.
 A script to perform a copy from the source to the destination based on folder.

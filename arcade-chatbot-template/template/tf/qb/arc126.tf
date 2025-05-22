@@ -20,7 +20,7 @@ variable "lab_context" {
 }
 
 
-b_list: Questions to be shown in the lab
+## lab_list: Questions to be shown in the lab
 ## Type: There are four options presented
 ## title: String representing the title of the List e.g. "History, Geography, Artists"
 ## answer: String representing the question answer
