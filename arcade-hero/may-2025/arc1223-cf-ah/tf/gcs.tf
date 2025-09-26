@@ -1,55 +1,52 @@
-# Arcade Hero 
-# Description: Dynamic content for labs
+# Module: Google Cloud Storage
 #-----------------------------------------------------------------------------
+module "la_gcs" {
+  ## NOTE: When changing the source parameter, `terraform init` is required
 
-# Variables: Google Cloud Storage 
-#-----------------------------------------------------------------------------
-variable "gcp_gcs_icon" {
-  type        = string
-  description = "key file location"
-  default     = "https://storage.googleapis.com/spls/arc-hero/assets/images/cloud_storage.png"
+  ## Local Modules - working
+  ## Module subdirectory needs to be defined within the TF directory
+  #source = "./basics/gcs_bucket/stable"
+
+  ## REMOTE: GitHub (Public) access - working 
+  source = "github.com/CloudVLab/terraform-lab-foundation//basics/gcs_bucket/stable"
+
+  # Pass values to the module
+  gcp_project_id = var.gcp_project_id
+  gcp_region     = var.gcp_region
+  gcp_zone       = var.gcp_zone
+
+  # Customise the GCS instance
+  gcs_bucket_extension = "app"
+  gcs_storage_class    = "STANDARD"
+  gcs_append_project   = true
 }
 
-variable "gcp_bucket_name" {
-  type        = string
-  description = "GCS Bucket name"
-  default     = "bucket"
-}
-
-# Variables: Google Cloud Storage 
+# Resource: google_storage_bucket_object 
+# Description: Create a bucket JSON file containing a dynamically generated question
 #-----------------------------------------------------------------------------
-module "gcs_bucket_create" {
-  # TODO: Move source to terraform-lab-foundations
-  source = "./modules/arcade_task"
 
-  # ... Google Cloud Storage 
-  # Google Cloud Storage: Create a Bucket
-  project_id = var.gcp_project_id
-  region     = var.gcp_region
-  zone       = var.gcp_zone
+resource "google_storage_bucket_object" "task_object" {
+  name   = "tasks.json"
+  bucket = module.la_gcs.gcs_bucket_name
 
-  ref           = "gcs-1"
-  title         = "Create a private Cloud Storage bucket"
-  image         = "https://storage.googleapis.com/spls/arc-hero/assets/images/cloud-storage.png"
-  resource_name = "${var.gcp_project_id}-${var.gcp_bucket_name}"
-
-  challenges = [
-    { step = "Name the bucket as \"${var.gcp_project_id}-${var.gcp_bucket_name}\".", command = "${var.gcp_project_id}-${var.gcp_bucket_name}" },
-    { step = "Set the bucket \"Location type\" as Region.", command = "" },
-    { step = "Select \"${var.gcp_region}\" from the available list.", command = "" },
-    # ... more challenges
-  ]
-
-  instructions = [
-    { step = "Open the Cloud Storage console.", command = "" },
-    { step = "Click the \"CREATE\" button.", command = "" },
-    { step = "Name the bucket as \"${var.gcp_project_id}-${var.gcp_bucket_name}\".", command = "${var.gcp_project_id}-${var.gcp_bucket_name}" },
-    { step = "Set the bucket \"Location type\" as Region. Select \"${var.gcp_region}\" from the available list.", command = "" },
-    { step = "Click the \"CONTINUE\" button in the \"Location type\".", command = "" },
-    { step = "Click the \"CREATE\" button at the bottom of the screen.", command = "" },
-    { step = "The \"Public access will be prevented\" notification is presented. Click the \"CONFIRM\" button to proceed.", command = "" },
-    { step = "A message will indicate that the storage bucket ${var.gcp_project_id}-${var.gcp_bucket_name} has been successfully created.", command = "" },
-    { step = "The task is now complete.", command = "" },
-    # ... more instructions
-  ]
+  ## Encode a question in JSON format
+  content = jsonencode({
+    "tasks" : [
+      for task in local.tasks : {
+        project_id    = var.gcp_project_id
+        region        = var.gcp_region
+        zone          = var.gcp_zone
+        ref           = task.ref
+        title         = task.title
+        image         = task.image
+        resource_name = task.resource_name
+        challenges    = task.challenges
+        instructions  = task.instructions
+      }
+    ],
+    "author" : "Rich Rose",
+    "publish" : "14th Dec 2023"
+  })
 }
+
+

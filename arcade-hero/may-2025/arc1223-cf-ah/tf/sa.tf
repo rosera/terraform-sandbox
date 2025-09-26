@@ -81,7 +81,8 @@ module "la_developer_sa_role" {
   ## Custom Properties
   # Pass the service account as principle member - non authorative binding
   iam_sa_name  = local.compute_dev_sa
-  iam_sa_roles = [ "roles/storage.admin", "roles/pubsub.admin", "roles/eventarc.eventReceiver" ] 
+  # iam_sa_roles = [ "roles/storage.admin", "roles/pubsub.admin", "roles/eventarc.eventReceiver" ] 
+  iam_sa_roles = [ "roles/run.admin", "roles/cloudfunctions.admin", "roles/storage.admin", "roles/pubsub.admin", "roles/eventarc.eventReceiver", "roles/iam.serviceAccountUser", "roles/logging.logWriter" ]
 }
 
 module "la_project_sa_role" {

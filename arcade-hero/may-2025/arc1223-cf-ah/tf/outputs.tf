@@ -4,7 +4,8 @@
 
 # Terraform Output values
 output "service_url" {
-  value = module.la_cloud_run.gcr_service_url
+  # value = module.la_cloud_run.gcr_service_url
+  value = "${var.service_name}-${data.google_project.project.number}.${var.gcp_region}.run.app"
 }
 
 output "bucket" {

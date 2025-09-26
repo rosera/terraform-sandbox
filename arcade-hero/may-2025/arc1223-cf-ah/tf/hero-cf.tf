@@ -58,6 +58,23 @@ variable "gcp_cf_instances" {
   default     = "5"
 }
 
+variable "gcp_cf_service_account" {
+  type        = string
+  description = "Cloud Run functions service account"
+  # default     = "Compute Engine default service account"
+  # default     = "Cloud Run functions demo account"
+  default     = "Arcade Hero SA"
+}
+
+variable "gcp_cf2_service_account" {
+  type        = string
+  description = "Cloud Run functions service account"
+  default     = "Compute Engine default service account"
+  # default     = "Cloud Run functions demo account"
+  # default     = "Arcade Hero SA"
+}
+
+
 # Variables: Cloud Run functions 
 #-----------------------------------------------------------------------------
 module "cloud_functions_http" {

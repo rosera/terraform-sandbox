@@ -14,5 +14,5 @@ module "la_api_batch" {
 
   # Customise the GCE instance
   # Ref: https://cloud.google.com/eventarc/standard/docs/run/create-trigger-storage-gcloud
-  api_services = [ "run.googleapis.com", "eventarc.googleapis.com", "storage.googleapis.com", "pubsub.googleapis.com" ] 
+  api_services = [ "cloudfunctions.googleapis.com", "run.googleapis.com", "eventarc.googleapis.com", "storage.googleapis.com", "pubsub.googleapis.com", "cloudbuild.googleapis.com" ] 
 }
